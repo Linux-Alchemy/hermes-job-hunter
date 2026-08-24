@@ -1,0 +1,24 @@
+# Local/private configuration
+.env
+.env.*
+!.env.example
+config/*.local.yaml
+config/*.local.yml
+config/*.local.md
+
+# Hermes runtime state must never enter this repository
+state.db*
+auth.json
+*.token.json
+*.secret.json
+sessions/
+logs/
+cache/
+cron/
+workspace/
+
+# Python/tooling residue
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/

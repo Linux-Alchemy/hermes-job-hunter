@@ -1,0 +1,501 @@
+# Copy to source_registry.local.yaml, test each source, then enable it deliberately.
+schema_version: 1
+registry_version: template-1
+status: template_requires_local_verification
+scope: canada_remote_starting_point
+owner: profile_owner
+review_owner: profile_owner
+last_reviewed: null
+human_decision_record: config/source_access_decisions.local.md
+architecture_record: docs/ARCHITECTURE.md
+policy:
+  default_scan_lane: automated_core
+  allowed_lanes:
+  - automated_core
+  - supplemental
+  - setup_deferred
+  - direct_ats
+  allowed_setup_states:
+  - ready
+  - degraded
+  - not_configured
+  - blocked
+  - excluded
+  runtime_result_states:
+  - COMPLETE
+  - DEGRADED
+  - BLOCKED
+  - NOT_EVALUATED
+  - STALE
+  verify_shortlisted_roles_at_employer: true
+  target_jurisdictions:
+  - CA
+  require_target_jurisdiction_eligibility_check: true
+  require_actual_remote_condition_check: true
+  require_source_url_and_access_date: true
+  prohibit_login_or_paywall_bypass: true
+  prohibit_account_or_subscription_creation: true
+  prohibit_external_application_actions: true
+  exhaustive_market_claims_allowed: false
+sources:
+- source_id: himalayas
+  display_name: Himalayas
+  priority: 1
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_api
+  connector_id: himalayas_public_api
+  setup_state: ready
+  authority_needed: none
+  coverage: remote_and_canada
+  employer_verification: required
+  known_failure_modes:
+  - ordinary_jobs_page_extraction_failure
+  - aggregator_filter_oddities
+  last_access_test: null
+- source_id: communitech_work_in_tech
+  display_name: Communitech Work in Tech
+  priority: 2
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_web
+  connector_id: communitech_public_board
+  setup_state: ready
+  authority_needed: none
+  coverage: canadian_technology
+  employer_verification: required
+  known_failure_modes:
+  - third_party_board_structure_changes
+  last_access_test: null
+- source_id: we_work_remotely
+  display_name: We Work Remotely
+  priority: 3
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_web
+  connector_id: we_work_remotely_canada_pages
+  setup_state: ready
+  authority_needed: none
+  coverage: remote_with_country_restrictions
+  employer_verification: required
+  known_failure_modes:
+  - senior_heavy_inventory
+  - location_label_ambiguity
+  - boosted_listing_noise
+  last_access_test: null
+- source_id: remote_ok
+  display_name: Remote OK
+  priority: 4
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_api_and_web
+  connector_id: remote_ok_public_feed
+  setup_state: ready
+  authority_needed: none
+  coverage: remote_global_with_country_tags
+  employer_verification: required
+  known_failure_modes:
+  - over_tagged_records
+  - incorrect_remote_labels
+  - incorrect_location_labels
+  - onsite_roles_in_remote_feed
+  last_access_test: null
+- source_id: government_of_canada_job_bank
+  display_name: Government of Canada Job Bank
+  priority: 5
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_web
+  connector_id: job_bank_public_search
+  setup_state: ready
+  authority_needed: none
+  coverage: canada
+  employer_verification: required
+  known_failure_modes:
+  - remote_location_not_work_from_home
+  - broad_nontechnical_inventory
+  last_access_test: null
+- source_id: eluta
+  display_name: Eluta
+  priority: 6
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_web
+  connector_id: eluta_public_search
+  setup_state: ready
+  authority_needed: none
+  coverage: established_canadian_employers
+  employer_verification: required
+  known_failure_modes:
+  - remote_camp_false_positive
+  - hybrid_role_noise
+  last_access_test: null
+- source_id: nodesk
+  display_name: NoDesk
+  priority: 7
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_web
+  connector_id: nodesk_canada_pages
+  setup_state: ready
+  authority_needed: none
+  coverage: remote_canada
+  employer_verification: required
+  known_failure_modes:
+  - advertisements
+  - stale_entries
+  last_access_test: null
+- source_id: working_nomads
+  display_name: Working Nomads
+  priority: 8
+  enabled: false
+  scan_by_default: false
+  lane: automated_core
+  purpose: discovery
+  access_method: public_web
+  connector_id: working_nomads_canada_pages
+  setup_state: ready
+  authority_needed: none
+  coverage: remote_canada_and_categories
+  employer_verification: required
+  known_failure_modes:
+  - board_structure_changes
+  - no_verified_connector_api_yet
+  last_access_test: null
+- source_id: wellfound
+  display_name: Wellfound
+  priority: 20
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: startup_discovery
+  access_method: public_web
+  connector_id: wellfound_public_pages
+  setup_state: ready
+  authority_needed: none_for_public_pages
+  coverage: startup_and_remote_canada
+  employer_verification: required
+  known_failure_modes:
+  - account_required_for_personalized_matching
+  - account_required_for_application_features
+  - experience_requirements_skew_upward
+  last_access_test: null
+- source_id: dynamite_jobs
+  display_name: Dynamite Jobs
+  priority: 21
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: discovery
+  access_method: public_web
+  connector_id: dynamite_jobs_public_search
+  setup_state: ready
+  authority_needed: none
+  coverage: remote_first
+  employer_verification: required
+  known_failure_modes:
+  - small_inventory
+  - weak_canada_filtering
+  - weak_technical_filtering
+  last_access_test: null
+- source_id: jobspresso
+  display_name: Jobspresso
+  priority: 22
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: discovery
+  access_method: public_web
+  connector_id: jobspresso_public_search
+  setup_state: ready
+  authority_needed: none
+  coverage: remote_technology_support_product_operations
+  employer_verification: required
+  known_failure_modes:
+  - small_inventory
+  - weak_filtering
+  - weak_structured_metadata
+  last_access_test: null
+- source_id: dice
+  display_name: Dice
+  priority: 23
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: occasional_technology_discovery
+  access_method: public_web
+  connector_id: dice_public_search
+  setup_state: ready
+  authority_needed: none
+  coverage: technology_with_limited_canadian_fit
+  employer_verification: required
+  known_failure_modes:
+  - us_oriented_inventory
+  - senior_heavy_inventory
+  - contracting_and_recruiter_noise
+  last_access_test: null
+- source_id: linkedin_jobs
+  display_name: LinkedIn Jobs
+  priority: 30
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: indexed_discovery_and_alerts
+  access_method: indexed_web_and_gmail_alerts
+  connector_id: linkedin_indexed_and_gmail_alerts
+  setup_state: degraded
+  authority_needed: optional_read_only_alert_integration
+  coverage: broad_with_network_context
+  employer_verification: required
+  known_failure_modes:
+  - no_authenticated_linkedin_search
+  - inconsistent_public_search_pages
+  - no_saved_search_or_personalized_result_access
+  - indexed_result_staleness
+  last_access_test: null
+- source_id: indeed_canada
+  display_name: Indeed Canada
+  priority: 31
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: indexed_discovery
+  access_method: indexed_and_partial_public_web
+  connector_id: indeed_indexed_search
+  setup_state: degraded
+  authority_needed: none
+  coverage: broad_canadian
+  employer_verification: required
+  known_failure_modes:
+  - direct_extraction_failure
+  - anti_automation
+  - duplicates
+  - stale_listings
+  - recruiter_noise
+  - location_noise
+  last_access_test: null
+- source_id: remote_co
+  display_name: Remote.co
+  priority: 32
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: indexed_discovery
+  access_method: public_and_indexed_web
+  connector_id: remote_co_public_search
+  setup_state: degraded
+  authority_needed: none
+  coverage: remote_and_flexible
+  employer_verification: required
+  known_failure_modes:
+  - direct_page_timeout
+  - inconsistent_availability
+  - hybrid_role_mixing
+  last_access_test: null
+- source_id: remotive
+  display_name: Remotive
+  priority: 33
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: limited_public_discovery
+  access_method: limited_public_web_api_or_rss
+  connector_id: remotive_public_surface
+  setup_state: degraded
+  authority_needed: none_for_public_sample
+  coverage: remote_role_families
+  employer_verification: required
+  known_failure_modes:
+  - severely_incomplete_public_inventory
+  - unlock_or_paid_layer
+  - intermittent_api_failure
+  - delayed_api_results
+  last_access_test: null
+  upgrade_path:
+    state: deferred
+    requirement: paid_or_unlock_access
+    recommendation: do_not_prioritize
+- source_id: glassdoor_canada
+  display_name: Glassdoor Canada
+  priority: 34
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: employer_and_salary_diligence
+  access_method: indexed_web
+  connector_id: glassdoor_indexed_diligence
+  setup_state: degraded
+  authority_needed: none_for_indexed_results
+  coverage: canada_employer_research
+  employer_verification: preferred
+  known_failure_modes:
+  - account_orientation
+  - javascript_orientation
+  - anti_automation
+  - duplicate_job_inventory
+  last_access_test: null
+- source_id: talent_com
+  display_name: Talent.com
+  priority: 35
+  enabled: false
+  scan_by_default: false
+  lane: supplemental
+  purpose: supplemental_aggregator_discovery
+  access_method: public_and_indexed_web
+  connector_id: talent_com_public_search
+  setup_state: degraded
+  authority_needed: none_for_public_pages
+  coverage: broad_canadian
+  employer_verification: required
+  known_failure_modes:
+  - high_duplicate_risk
+  - high_noise_risk
+  - partner_api_not_suitable_for_personal_search
+  last_access_test: null
+  upgrade_path:
+    state: excluded
+    requirement: partner_or_publisher_api_arrangement
+    recommendation: not_worthwhile_for_v1
+- source_id: adzuna_canada
+  display_name: Adzuna Canada
+  priority: 90
+  enabled: false
+  scan_by_default: false
+  lane: setup_deferred
+  purpose: aggregator_discovery
+  access_method: keyed_api
+  connector_id: adzuna_api
+  setup_state: not_configured
+  authority_needed: explicit_user_approval_and_local_api_credentials
+  coverage: broad_canadian
+  employer_verification: required
+  known_failure_modes:
+  - duplicates
+  - stale_listings
+  - aggregation_noise
+  last_access_test: null
+  activation_condition: demonstrated_coverage_gap_not_solved_by_free_sources
+- source_id: jooble_canada
+  display_name: Jooble Canada
+  priority: 91
+  enabled: false
+  scan_by_default: false
+  lane: setup_deferred
+  purpose: aggregator_discovery
+  access_method: keyed_api
+  connector_id: jooble_api
+  setup_state: not_configured
+  authority_needed: explicit_user_approval_and_local_api_credentials
+  coverage: broad_canadian
+  employer_verification: required
+  known_failure_modes:
+  - duplicates
+  - aggregation_noise
+  - limited_advantage_over_existing_sources
+  last_access_test: null
+  activation_condition: demonstrated_coverage_gap_not_solved_by_free_sources
+- source_id: flexjobs
+  display_name: FlexJobs
+  priority: 92
+  enabled: false
+  scan_by_default: false
+  lane: setup_deferred
+  purpose: paid_remote_discovery
+  access_method: subscription_account
+  connector_id: none
+  setup_state: not_configured
+  authority_needed: explicit_user_approval_payment_and_account
+  coverage: remote_and_flexible
+  employer_verification: required
+  known_failure_modes:
+  - paywall
+  - no_authorized_account_session
+  last_access_test: null
+  activation_condition: free_source_listing_quality_is_proven_bottleneck
+- source_id: welcome_to_the_jungle
+  display_name: Welcome to the Jungle
+  priority: 93
+  enabled: false
+  scan_by_default: false
+  lane: setup_deferred
+  purpose: account_based_matching
+  access_method: account_profile
+  connector_id: none
+  setup_state: not_configured
+  authority_needed: explicit_user_approval_and_account_authority
+  coverage: curated_technology_and_company_context
+  employer_verification: required
+  known_failure_modes:
+  - partial_public_extraction
+  - no_authorized_account_session
+  - opaque_canada_coverage
+  last_access_test: null
+  activation_condition: manual_profile_matching_is_deliberately_adopted
+- source_id: greenhouse
+  display_name: Greenhouse Job Board API
+  priority: 110
+  enabled: false
+  scan_by_default: false
+  lane: direct_ats
+  purpose: employer_original_verification_and_targeted_monitoring
+  access_method: public_company_feed
+  connector_id: greenhouse_job_board_api
+  setup_state: ready
+  authority_needed: none
+  coverage: known_employer_only
+  employer_verification: native_source
+  known_failure_modes:
+  - company_board_token_required
+  - no_global_company_enumeration
+  last_access_test: null
+  activation_condition: known_company_identifier_or_employer_link
+- source_id: lever
+  display_name: Lever Postings API
+  priority: 111
+  enabled: false
+  scan_by_default: false
+  lane: direct_ats
+  purpose: employer_original_verification_and_targeted_monitoring
+  access_method: public_company_feed
+  connector_id: lever_postings_api
+  setup_state: ready
+  authority_needed: none
+  coverage: known_employer_only
+  employer_verification: native_source
+  known_failure_modes:
+  - company_slug_required
+  - no_global_company_enumeration
+  last_access_test: null
+  activation_condition: known_company_identifier_or_employer_link
+- source_id: ashby
+  display_name: Ashby Public Job Posting API
+  priority: 112
+  enabled: false
+  scan_by_default: false
+  lane: direct_ats
+  purpose: employer_original_verification_and_targeted_monitoring
+  access_method: public_company_feed
+  connector_id: ashby_public_job_posting_api
+  setup_state: ready
+  authority_needed: none
+  coverage: known_employer_only
+  employer_verification: native_source
+  known_failure_modes:
+  - company_identifier_required
+  - no_global_company_enumeration
+  last_access_test: null
+  activation_condition: known_company_identifier_or_employer_link

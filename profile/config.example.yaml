@@ -1,0 +1,25 @@
+# Copy the relevant sections into a dedicated Hermes profile.
+# Configure the model/provider separately with `hermes --profile <name> model`.
+
+terminal:
+  home_mode: profile
+
+agent:
+  verify_on_stop: true
+
+# Start with the minimum read/draft tool surface.
+# Add messaging, cron, cloud, Kanban, or browser integrations only after
+# reviewing their authority and updating the profile contract.
+platform_toolsets:
+  cli:
+    - clarify
+    - file
+    - skills
+    - todo
+    - web
+  discord:
+    - clarify
+    - file
+    - skills
+    - todo
+    - web
