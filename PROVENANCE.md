@@ -13,6 +13,7 @@ The private profile is used as operational evidence. Private runtime files are n
 | `config/source_registry.example.yaml` | Sanitized from local source | Generated from a locally tested twenty-five-source registry. Owner fields were generalized, local paths removed, access dates cleared, and every source disabled pending adopter verification. |
 | `config/source_access_decisions.example.md` | Clean-room authored | Blank human decision-record template implementing the prose/YAML split. |
 | `docs/ARCHITECTURE.md` | Clean-room authored | Condenses the proven runtime/package split, source state model, workflow, and authority boundary. |
+| `docs/JOB_DISCOVERY_SKILL_RESEARCH.md` | Clean-room research synthesis | Records the static candidate audit, exact inspected repository revisions, patch-versus-build decision, and separate runtime/source-discovery boundary. No donor code or prose skill was copied. |
 | `onboarding/voice_calibration.md` | Clean-room authored | Generalizes a successful before/after calibration method without including private writing samples or personal voice rules. |
 | `tests/acceptance_matrix.md` | Clean-room authored | Converts observed success and failure requirements into public acceptance cases. |
 | `scripts/validate_package.py` | Clean-room authored | Local structural and leakage validator written for this repository. |

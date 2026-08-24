@@ -13,6 +13,7 @@
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
 | Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert template; every source is disabled pending local verification. |
 | Source decision-record template | Initial public version | Separates human rationale from executable configuration. |
+| Job-discovery skill research | Decision-ready | Candidate audit complete. Build a clean-room runtime skill; keep source discovery as a separate onboarding/maintenance skill. |
 | Voice-calibration onboarding | Initial public version | Teaches adopters to calibrate a user-owned overlay without shipping private samples. |
 | Acceptance matrix | Initial version | Defines required success, degraded, stale, refusal, and clean-install tests. |
 | Package validator | Working | Validates structure, YAML, skill frontmatter, links, symlinks, and common leakage patterns. |
@@ -32,7 +33,8 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- the job-discovery and fit skill that consumes the registry;
+- the runtime `job-discovery` skill that consumes the registry;
+- the onboarding/maintenance `job-source-discovery` skill that proposes registry changes;
 - matching-profile and evidence-bank schemas;
 - application-packet skill and templates;
 - deterministic résumé and cover-letter rendering;
@@ -44,12 +46,13 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Next build sequence
 
-1. Build the job-discovery/fit skill against `source_registry.example.yaml`.
-2. Add versioned matching-profile and evidence-bank schemas.
-3. Run synthetic normal, degraded, stale, blocked, and injection cases.
+1. Build the clean-room `job-discovery` skill against `source_registry.example.yaml` and `job-hunter-core`.
+2. Add the normalized posting, search-run, matching-profile, and evidence-bank contracts.
+3. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
 4. Install the proven generic skill into the private specialist profile through local configuration.
-5. Add the reviewed application packet and deterministic document renderer.
-6. Complete clean-install, leakage, provenance, and human semantic review.
+5. Build the smaller `job-source-discovery` onboarding/maintenance skill.
+6. Add the reviewed application packet and deterministic document renderer.
+7. Complete clean-install, leakage, provenance, and human semantic review.
 
 ## Migration rule
 
