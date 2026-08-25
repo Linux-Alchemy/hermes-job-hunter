@@ -15,11 +15,12 @@ except ImportError as exc:  # pragma: no cover - environment failure
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
+    "distribution.yaml",
+    "SOUL.md",
+    "config.yaml",
     "README.md",
     "PROJECT_STATUS.md",
     "PROVENANCE.md",
-    "profile/SOUL.md",
-    "profile/config.example.yaml",
     "skills/job-hunter-core/SKILL.md",
     "config/source_registry.example.yaml",
     "config/source_access_decisions.example.md",
@@ -28,10 +29,12 @@ REQUIRED = [
     "tests/acceptance_matrix.md",
 ]
 SCAN_ROOTS = [
+    ROOT / "distribution.yaml",
+    ROOT / "SOUL.md",
+    ROOT / "config.yaml",
     ROOT / "README.md",
     ROOT / "PROJECT_STATUS.md",
     ROOT / "PROVENANCE.md",
-    ROOT / "profile",
     ROOT / "skills",
     ROOT / "config",
     ROOT / "docs",
@@ -60,6 +63,26 @@ def validate_required_files() -> None:
     missing = [relative for relative in REQUIRED if not (ROOT / relative).is_file()]
     if missing:
         fail(f"missing required files: {', '.join(missing)}")
+
+
+def validate_distribution() -> None:
+    path = ROOT / "distribution.yaml"
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        fail("distribution manifest is not a mapping")
+    for field in ("name", "version", "description", "hermes_requires", "author"):
+        if not data.get(field):
+            fail(f"distribution manifest missing field: {field}")
+    if data["name"] != "hermes-job-hunter":
+        fail("distribution name must be hermes-job-hunter")
+    expected_owned = {"distribution.yaml", "SOUL.md", "config.yaml", "skills/"}
+    owned = data.get("distribution_owned")
+    if not isinstance(owned, list) or set(owned) != expected_owned:
+        fail("distribution_owned paths do not match the public runtime payload")
+
+    config = yaml.safe_load((ROOT / "config.yaml").read_text(encoding="utf-8"))
+    if not isinstance(config, dict):
+        fail("config.yaml is not a mapping")
 
 
 def validate_registry() -> tuple[int, int]:
@@ -160,12 +183,14 @@ def validate_symlinks() -> None:
 
 def main() -> None:
     validate_required_files()
+    validate_distribution()
     source_count, enabled_count = validate_registry()
     validate_skill()
     checked_links = validate_links()
     scanned_files = validate_hygiene()
     validate_symlinks()
     print("PASS: required package structure")
+    print("PASS: Hermes distribution manifest and config")
     print(f"PASS: source registry ({source_count} unique sources; {enabled_count} enabled by default)")
     print("PASS: job-hunter-core skill frontmatter and size")
     print(f"PASS: relative Markdown links ({checked_links} checked)")

@@ -9,7 +9,7 @@ This matrix defines required behaviour. Checked boxes must be backed by a saved 
 - [x] Core skill frontmatter and size validate.
 - [x] Relative Markdown links resolve.
 - [x] Common absolute-path, email, identifier, secret, and private-key patterns are absent.
-- [ ] Clean installation succeeds in a fresh Hermes profile.
+- [x] Clean installation succeeds in an isolated Hermes home through `hermes profile install`.
 
 ## Job discovery
 

@@ -2,7 +2,7 @@
 
 A reusable Hermes specialist profile for evidence-bounded job discovery, fit analysis, and application drafting.
 
-> **Status:** private active build. The package now has a coherent, validated foundation, but it is not yet ready for general installation. Job discovery, matching, evidence-bank, and document-rendering capabilities are still being integrated.
+> **Status:** installable pre-release. The repository is a native Hermes profile distribution with a validated core foundation, but job discovery, matching, evidence-bank, and document-rendering capabilities are still being integrated.
 
 ## What it is
 
@@ -20,7 +20,10 @@ The human owns career facts, consequential decisions, public wording, applicatio
 ## How the package fits together
 
 ```text
-profile/SOUL.md
+distribution.yaml
+    declares the installable Hermes profile and owned paths
+            ↓
+SOUL.md
     defines mission, authority, and non-goals
             ↓
 skills/job-hunter-core/SKILL.md
@@ -41,12 +44,12 @@ The repository ships an inert, Canada-oriented registry example because that is 
 
 ```text
 hermes-job-hunter/
+├── distribution.yaml
+├── SOUL.md
+├── config.yaml
 ├── README.md
 ├── PROJECT_STATUS.md
 ├── PROVENANCE.md
-├── profile/
-│   ├── SOUL.md
-│   └── config.example.yaml
 ├── skills/
 │   └── job-hunter-core/
 │       └── SKILL.md
@@ -95,7 +98,19 @@ It checks required files, YAML structure, skill frontmatter, relative links, sym
 
 ## Installation
 
-Installation instructions will be added after the discovery skill, matching profile, evidence bank, and synthetic acceptance case are complete. Until then, treat this repository as a versioned build rather than an installable release.
+Install the current pre-release distribution directly from GitHub:
+
+```bash
+hermes profile install github.com/Linux-Alchemy/hermes-job-hunter --alias
+```
+
+For local development or inspection:
+
+```bash
+hermes profile install . --name hermes-job-hunter-test
+```
+
+This installs the profile contract, safe default configuration, and the capabilities currently present under `skills/`. It does not install private career evidence, credentials, account state, application history, or writing samples. The current release contains only the core skill and should be treated as a foundation rather than a complete career agent.
 
 ## Licence
 

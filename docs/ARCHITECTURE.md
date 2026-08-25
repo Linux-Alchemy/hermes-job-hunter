@@ -7,7 +7,7 @@ Hermes Job Hunter separates runtime identity, reusable procedure, private config
 ```text
 ┌──────────────────────────────────────────────┐
 │ Profile contract                            │
-│ profile/SOUL.md                             │
+│ SOUL.md                                     │
 │ Mission, authority, refusal, human ownership│
 └──────────────────────┬───────────────────────┘
                        ↓
@@ -31,7 +31,7 @@ Hermes Job Hunter separates runtime identity, reusable procedure, private config
 
 ## Package versus live profile
 
-The repository contains reusable policy, schemas, templates, onboarding, synthetic examples, and acceptance tests.
+The repository root is a native Hermes profile distribution. `distribution.yaml`, `SOUL.md`, `config.yaml`, and `skills/` are installed as the agent; the remaining directories contain reusable schemas, templates, onboarding, development documentation, and acceptance tests.
 
 A live installation contains private values:
 

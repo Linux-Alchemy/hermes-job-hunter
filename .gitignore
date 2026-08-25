@@ -1,21 +1,54 @@
-# Local/private configuration
+# Credentials and secrets — never commit
 .env
 .env.*
 !.env.example
+auth.json
+*.token.json
+*.secret.json
+
+# Local/private package configuration
 config/*.local.yaml
 config/*.local.yml
 config/*.local.md
 
-# Hermes runtime state must never enter this repository
+# Hermes runtime databases and state
 state.db*
-auth.json
-*.token.json
-*.secret.json
+hermes_state.db
+response_store.db*
+gateway.pid
+gateway_state.json
+processes.json
+auth.lock
+active_profile
+.update_check
+
+# User-owned Hermes data
+memories/
 sessions/
 logs/
-cache/
-cron/
+plans/
 workspace/
+home/
+local/
+
+# Generated caches and artefacts
+image_cache/
+audio_cache/
+document_cache/
+browser_screenshots/
+cache/
+checkpoints/
+sandboxes/
+backups/
+errors.log
+.hermes_history
+
+# Infrastructure and dependencies
+hermes-agent/
+.worktrees/
+profiles/
+bin/
+node_modules/
 
 # Python/tooling residue
 __pycache__/

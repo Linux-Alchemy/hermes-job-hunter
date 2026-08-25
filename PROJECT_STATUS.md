@@ -1,14 +1,15 @@
 # Project Status
 
-**Package state:** foundation established  
-**Release state:** private, not install-ready  
+**Package state:** native distribution foundation established
+**Release state:** private, installable pre-release
 **Canonical purpose of this file:** show what is actually present in the repository and what remains private or unfinished.
 
 ## Implemented in this repository
 
 | Component | State | Notes |
 |---|---|---|
-| Repository shape | Complete | Runtime profile, skills, configuration, onboarding, tests, and architecture have clear homes. |
+| Repository shape | Complete | Native Hermes distribution manifest, root profile files, skills, configuration, onboarding, tests, and architecture have clear homes. |
+| Clean profile installation | Working | The repository installs directly through `hermes profile install` into an isolated Hermes home. |
 | Profile authority contract | Initial public version | Generic, review-gated, and free of private paths or identities. |
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
 | Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert template; every source is disabled pending local verification. |
@@ -40,13 +41,13 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 - deterministic résumé and cover-letter rendering;
 - sanitized portfolio, résumé, and LinkedIn audit procedures;
 - synthetic candidate, posting, source-failure, and application fixtures;
-- install, upgrade, and rollback instructions;
-- a clean-profile end-to-end acceptance run;
+- update, rollback, and release instructions;
+- a full-capability clean-profile end-to-end acceptance run;
 - public licence and release metadata.
 
 ## Next build sequence
 
-1. Build the clean-room `job-discovery` skill against `source_registry.example.yaml` and `job-hunter-core`.
+1. Keep the distribution installable while building the clean-room `job-discovery` skill against `source_registry.example.yaml` and `job-hunter-core`.
 2. Add the normalized posting, search-run, matching-profile, and evidence-bank contracts.
 3. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
 4. Install the proven generic skill into the private specialist profile through local configuration.

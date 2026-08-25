@@ -8,7 +8,9 @@ The private profile is used as operational evidence. Private runtime files are n
 
 | Repository artefact | Classification | Source and treatment |
 |---|---|---|
-| `profile/SOUL.md` | Clean-room authored | Reconstructed from the proven mission, evidence contract, authority limits, and failure posture. Personal names, paths, integrations, and career facts were excluded. |
+| `distribution.yaml` | Clean-room authored | Native Hermes distribution manifest defining the pre-release identity and distribution-owned paths. No credentials or private runtime state are represented. |
+| `SOUL.md` | Clean-room authored | Reconstructed from the proven mission, evidence contract, authority limits, and failure posture. Personal names, paths, integrations, and career facts were excluded. |
+| `config.yaml` | Clean-room authored | Minimal read-and-draft Hermes configuration promoted from the reviewed public example. Model, provider, credentials, messaging, and private integrations remain adopter-owned. |
 | `skills/job-hunter-core/SKILL.md` | Clean-room authored | Reconstructed from the live core procedure. User-specific source precedence, storage paths, messaging, cloud, Kanban, cron, and writing-skill names were replaced by generic contracts. |
 | `config/source_registry.example.yaml` | Sanitized from local source | Generated from a locally tested twenty-five-source registry. Owner fields were generalized, local paths removed, access dates cleared, and every source disabled pending adopter verification. |
 | `config/source_access_decisions.example.md` | Clean-room authored | Blank human decision-record template implementing the prose/YAML split. |
