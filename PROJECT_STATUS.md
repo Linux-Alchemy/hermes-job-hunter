@@ -44,7 +44,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 - synthetic candidate, posting, source-failure, and application fixtures;
 - update, rollback, and release instructions;
 - a full-capability clean-profile end-to-end acceptance run;
-- remaining release metadata and update/rollback guidance.
+- tagged-release notes and version metadata for the first stable release.
 
 ## Next build sequence
 
@@ -54,7 +54,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 4. Install the proven generic skill into the private specialist profile through local configuration.
 5. Build the smaller `job-source-discovery` onboarding/maintenance skill.
 6. Add the reviewed application packet and deterministic document renderer.
-7. Complete clean-install, leakage, provenance, and human semantic review.
+7. Repeat clean-install, leakage, provenance, and human semantic review against the expanded package before a tagged release.
 
 ## Migration rule
 
