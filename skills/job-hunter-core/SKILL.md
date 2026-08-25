@@ -3,7 +3,7 @@ name: job-hunter-core
 description: "Use for evidence-bounded career and job-search work. Enforces source precedence, authority limits, uncertainty states, human approval, and truthful artefact handling."
 version: 0.1.0
 author: Linux-Alchemy
-license: TBD
+license: MIT
 metadata:
   hermes:
     tags: [career, job-search, evidence, authority, applications]

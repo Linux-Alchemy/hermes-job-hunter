@@ -114,4 +114,6 @@ This installs the profile contract, safe default configuration, and the capabili
 
 ## Licence
 
-A public licence has not been selected yet. Third-party-derived skills will not be added until their licences and provenance can be represented correctly.
+Hermes Job Hunter is released under the [MIT License](LICENSE).
+
+Third-party-derived skills will not be added until their licences and provenance can be represented correctly.

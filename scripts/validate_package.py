@@ -19,6 +19,7 @@ REQUIRED = [
     "SOUL.md",
     "config.yaml",
     "README.md",
+    "LICENSE",
     "PROJECT_STATUS.md",
     "PROVENANCE.md",
     "skills/job-hunter-core/SKILL.md",
@@ -33,6 +34,7 @@ SCAN_ROOTS = [
     ROOT / "SOUL.md",
     ROOT / "config.yaml",
     ROOT / "README.md",
+    ROOT / "LICENSE",
     ROOT / "PROJECT_STATUS.md",
     ROOT / "PROVENANCE.md",
     ROOT / "skills",
@@ -70,11 +72,13 @@ def validate_distribution() -> None:
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
         fail("distribution manifest is not a mapping")
-    for field in ("name", "version", "description", "hermes_requires", "author"):
+    for field in ("name", "version", "description", "hermes_requires", "author", "license"):
         if not data.get(field):
             fail(f"distribution manifest missing field: {field}")
     if data["name"] != "hermes-job-hunter":
         fail("distribution name must be hermes-job-hunter")
+    if data["license"] != "MIT":
+        fail("distribution licence must be MIT")
     expected_owned = {"distribution.yaml", "SOUL.md", "config.yaml", "skills/"}
     owned = data.get("distribution_owned")
     if not isinstance(owned, list) or set(owned) != expected_owned:
@@ -133,6 +137,8 @@ def validate_skill() -> None:
             fail(f"core skill missing frontmatter field: {field}")
     if len(frontmatter["description"]) > 1024:
         fail("core skill description exceeds 1024 characters")
+    if frontmatter["license"] != "MIT":
+        fail("core skill licence must be MIT")
     if len(text) > 100_000:
         fail("core skill exceeds Hermes size limit")
 
