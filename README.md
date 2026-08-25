@@ -48,6 +48,7 @@ hermes-job-hunter/
 ├── SOUL.md
 ├── config.yaml
 ├── README.md
+├── LICENSE
 ├── PROJECT_STATUS.md
 ├── PROVENANCE.md
 ├── skills/

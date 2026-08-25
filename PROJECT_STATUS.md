@@ -1,7 +1,7 @@
 # Project Status
 
 **Package state:** native distribution foundation established
-**Release state:** private, installable pre-release
+**Release state:** public, installable pre-release
 **Canonical purpose of this file:** show what is actually present in the repository and what remains private or unfinished.
 
 ## Implemented in this repository
@@ -18,6 +18,7 @@
 | Voice-calibration onboarding | Initial public version | Teaches adopters to calibrate a user-owned overlay without shipping private samples. |
 | Acceptance matrix | Initial version | Defines required success, degraded, stale, refusal, and clean-install tests. |
 | Package validator | Working | Validates structure, YAML, skill frontmatter, links, symlinks, and common leakage patterns. |
+| Licence | Complete | MIT licence recorded at repository root and in distribution/skill metadata. |
 
 ## Deliberately private
 
@@ -43,7 +44,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 - synthetic candidate, posting, source-failure, and application fixtures;
 - update, rollback, and release instructions;
 - a full-capability clean-profile end-to-end acceptance run;
-- public licence and release metadata.
+- remaining release metadata and update/rollback guidance.
 
 ## Next build sequence
 
