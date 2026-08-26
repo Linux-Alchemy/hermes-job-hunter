@@ -2,7 +2,7 @@
 
 A reusable Hermes specialist profile for evidence-bounded job discovery, fit analysis, and application drafting.
 
-> **Status:** installable pre-release. The repository is a native Hermes profile distribution with a validated core foundation, but job discovery, matching, evidence-bank, and document-rendering capabilities are still being integrated.
+> **Status:** installable pre-release. The repository is a native Hermes profile distribution with a validated core foundation and a collaborative cover-letter drafting skill. Job discovery, matching, evidence-bank, résumé drafting, and deterministic document-rendering capabilities are still being integrated.
 
 ## What it is
 
@@ -29,6 +29,9 @@ SOUL.md
 skills/job-hunter-core/SKILL.md
     enforces evidence, source, status, and approval rules
             ↓
+skills/cover-letter-drafting/SKILL.md
+    develops one evidence-bounded letter in a shared human-review workspace
+            ↓
 config/source_registry.local.yaml
     tells the discovery skill which sources may run and how
             ↓
@@ -52,8 +55,14 @@ hermes-job-hunter/
 ├── PROJECT_STATUS.md
 ├── PROVENANCE.md
 ├── skills/
-│   └── job-hunter-core/
-│       └── SKILL.md
+│   ├── job-hunter-core/
+│   │   └── SKILL.md
+│   └── cover-letter-drafting/
+│       ├── SKILL.md
+│       ├── templates/
+│       │   └── cover_letter_workspace.md
+│       └── references/
+│           └── proven_workflow_pattern.md
 ├── config/
 │   ├── source_registry.example.yaml
 │   └── source_access_decisions.example.md
@@ -111,7 +120,7 @@ For local development or inspection:
 hermes profile install . --name hermes-job-hunter-test
 ```
 
-This installs the profile contract, safe default configuration, and the capabilities currently present under `skills/`. It does not install private career evidence, credentials, account state, application history, or writing samples. The current release contains only the core skill and should be treated as a foundation rather than a complete career agent.
+This installs the profile contract, safe default configuration, core evidence policy, and collaborative cover-letter drafting workflow. It does not install private career evidence, credentials, account state, application history, rendering tools, or writing samples. Treat the current release as a review-gated foundation rather than a complete career agent.
 
 ## Licence
 

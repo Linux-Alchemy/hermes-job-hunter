@@ -1,13 +1,13 @@
 ---
 name: job-hunter-core
 description: "Use for evidence-bounded career and job-search work. Enforces source precedence, authority limits, uncertainty states, human approval, and truthful artefact handling."
-version: 0.1.0
+version: 0.2.0
 author: Linux-Alchemy
 license: MIT
 metadata:
   hermes:
     tags: [career, job-search, evidence, authority, applications]
-    related_skills: []
+    related_skills: [cover-letter-drafting]
 ---
 
 # Job Hunter Core
@@ -145,10 +145,11 @@ For text appearing under the user's name:
 
 1. use verified evidence and current user notes before generic professional phrasing;
 2. load the approved human-writing cleaner and user-specific voice overlay when available;
-3. expose unsupported claims and missing decisions;
-4. draft for review rather than inventing a finished professional identity;
-5. preserve the user's approved wording;
-6. render documents only after application-specific source text is approved.
+3. route application-specific cover-letter work through `cover-letter-drafting`;
+4. treat raw user notes as valid authorship input when they contain a usable motive and argument; one complete first pass may then be drafted for direct review;
+5. expose unsupported claims and missing material decisions without turning intake into an interrogation;
+6. preserve user notes in the shared workspace and preserve explicitly approved wording in the clean source;
+7. render documents only after the application-specific source text is approved.
 
 Human-writing cleanup is not the same as user-specific voice. Calibration belongs in a user-owned skill or overlay, never in an upstream shared skill.
 

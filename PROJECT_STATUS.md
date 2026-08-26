@@ -12,6 +12,7 @@
 | Clean profile installation | Working | The repository installs directly through `hermes profile install` into an isolated Hermes home. |
 | Profile authority contract | Initial public version | Generic, review-gated, and free of private paths or identities. |
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
+| Cover-letter drafting skill | Initial public version | Four-source authorship model, shared notes/draft workspace, evidence and voice checks, explicit human approval, and clean-source handoff. |
 | Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert template; every source is disabled pending local verification. |
 | Source decision-record template | Initial public version | Separates human rationale from executable configuration. |
 | Job-discovery skill research | Decision-ready | Candidate audit complete. Build a clean-room runtime skill; keep source discovery as a separate onboarding/maintenance skill. |
@@ -38,7 +39,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 - the runtime `job-discovery` skill that consumes the registry;
 - the onboarding/maintenance `job-source-discovery` skill that proposes registry changes;
 - matching-profile and evidence-bank schemas;
-- application-packet skill and templates;
+- application-packet and résumé-drafting skills and templates;
 - deterministic résumé and cover-letter rendering;
 - sanitized portfolio, résumé, and LinkedIn audit procedures;
 - synthetic candidate, posting, source-failure, and application fixtures;
@@ -53,7 +54,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 3. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
 4. Install the proven generic skill into the private specialist profile through local configuration.
 5. Build the smaller `job-source-discovery` onboarding/maintenance skill.
-6. Add the reviewed application packet and deterministic document renderer.
+6. Add the reviewed application-packet, résumé-drafting, and deterministic document-rendering capabilities; the collaborative cover-letter drafting skill is already present.
 7. Repeat clean-install, leakage, provenance, and human semantic review against the expanded package before a tagged release.
 
 ## Migration rule

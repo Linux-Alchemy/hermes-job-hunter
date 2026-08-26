@@ -32,6 +32,9 @@ This matrix defines required behaviour. Checked boxes must be backed by a saved 
 
 ## Writing and documents
 
+- [x] Cover-letter skill and shared-workspace template are present and validate as installable skill assets.
+- [x] Four-source authorship, explicit approval, clean-source, and external-action boundaries are encoded.
+- [ ] Synthetic end-to-end cover-letter run preserves raw notes through review and approved wording through cleanup.
 - [ ] Baseline voice test can be saved and compared with a calibrated rerun.
 - [ ] Rejected voice rules leave the existing skill unchanged.
 - [ ] User-approved wording survives bounded cleanup.

@@ -23,6 +23,9 @@ REQUIRED = [
     "PROJECT_STATUS.md",
     "PROVENANCE.md",
     "skills/job-hunter-core/SKILL.md",
+    "skills/cover-letter-drafting/SKILL.md",
+    "skills/cover-letter-drafting/templates/cover_letter_workspace.md",
+    "skills/cover-letter-drafting/references/proven_workflow_pattern.md",
     "config/source_registry.example.yaml",
     "config/source_access_decisions.example.md",
     "docs/ARCHITECTURE.md",
@@ -117,30 +120,41 @@ def validate_registry() -> tuple[int, int]:
     return len(sources), enabled
 
 
-def validate_skill() -> None:
-    path = ROOT / "skills/job-hunter-core/SKILL.md"
-    text = path.read_text(encoding="utf-8")
-    if not text.startswith("---\n"):
-        fail("core skill frontmatter does not start at byte zero")
-    match = re.search(r"\n---\s*\n", text[4:])
-    if not match:
-        fail("core skill frontmatter is not closed")
-    end = match.start() + 4
-    try:
-        frontmatter = yaml.safe_load(text[4:end])
-    except yaml.YAMLError as exc:
-        fail(f"core skill frontmatter is invalid YAML: {exc}")
-    if not isinstance(frontmatter, dict):
-        fail("core skill frontmatter is not a mapping")
-    for field in ("name", "description", "version", "author", "license", "metadata"):
-        if not frontmatter.get(field):
-            fail(f"core skill missing frontmatter field: {field}")
-    if len(frontmatter["description"]) > 1024:
-        fail("core skill description exceeds 1024 characters")
-    if frontmatter["license"] != "MIT":
-        fail("core skill licence must be MIT")
-    if len(text) > 100_000:
-        fail("core skill exceeds Hermes size limit")
+def validate_skills() -> int:
+    skill_paths = sorted((ROOT / "skills").glob("*/SKILL.md"))
+    if not skill_paths:
+        fail("no skills found")
+    names: set[str] = set()
+    for path in skill_paths:
+        text = path.read_text(encoding="utf-8")
+        label = str(path.relative_to(ROOT))
+        if not text.startswith("---\n"):
+            fail(f"{label} frontmatter does not start at byte zero")
+        match = re.search(r"\n---\s*\n", text[4:])
+        if not match:
+            fail(f"{label} frontmatter is not closed")
+        end = match.start() + 4
+        try:
+            frontmatter = yaml.safe_load(text[4:end])
+        except yaml.YAMLError as exc:
+            fail(f"{label} frontmatter is invalid YAML: {exc}")
+        if not isinstance(frontmatter, dict):
+            fail(f"{label} frontmatter is not a mapping")
+        for field in ("name", "description", "version", "author", "license", "metadata"):
+            if not frontmatter.get(field):
+                fail(f"{label} missing frontmatter field: {field}")
+        if frontmatter["name"] != path.parent.name:
+            fail(f"{label} name does not match its directory")
+        if frontmatter["name"] in names:
+            fail(f"duplicate skill name: {frontmatter['name']}")
+        names.add(frontmatter["name"])
+        if len(frontmatter["description"]) > 1024:
+            fail(f"{label} description exceeds 1024 characters")
+        if frontmatter["license"] != "MIT":
+            fail(f"{label} licence must be MIT")
+        if len(text) > 100_000:
+            fail(f"{label} exceeds Hermes size limit")
+    return len(skill_paths)
 
 
 def validate_links() -> int:
@@ -191,14 +205,14 @@ def main() -> None:
     validate_required_files()
     validate_distribution()
     source_count, enabled_count = validate_registry()
-    validate_skill()
+    skill_count = validate_skills()
     checked_links = validate_links()
     scanned_files = validate_hygiene()
     validate_symlinks()
     print("PASS: required package structure")
     print("PASS: Hermes distribution manifest and config")
     print(f"PASS: source registry ({source_count} unique sources; {enabled_count} enabled by default)")
-    print("PASS: job-hunter-core skill frontmatter and size")
+    print(f"PASS: skill frontmatter and size ({skill_count} skills)")
     print(f"PASS: relative Markdown links ({checked_links} checked)")
     print(f"PASS: hygiene scan ({scanned_files} public artefacts)")
     print("PASS: no symlinks")

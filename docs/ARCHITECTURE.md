@@ -102,6 +102,27 @@ classify APPLY / APPLY_WITH_TAILORING /
 write short evidence-labelled slate for human review
 ```
 
+## Cover-letter drafting flow
+
+```text
+current user notes + employer-original posting
+                + company profile + approved résumé evidence
+                                      ↓
+                         extract one truthful argument
+                                      ↓
+                  preserve notes in a shared draft workspace
+                                      ↓
+                         write one complete first pass
+                                      ↓
+                    human annotations and explicit approval
+                                      ↓
+                 clean approved Markdown source without rewriting
+                                      ↓
+             separately authorised rendering and external action
+```
+
+The file is the collaboration surface. Raw notes remain intact through review, while the clean source is created only after explicit human approval. Rendering remains a separate capability and must not edit approved prose or silently substitute a missing configured font.
+
 ## Authority model
 
 The default package is read-and-draft only.
