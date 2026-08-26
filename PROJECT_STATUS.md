@@ -1,6 +1,6 @@
 # Project Status
 
-**Package state:** native distribution foundation established
+**Package state:** live-profile capability migration established; protected SOUL reconciliation and release acceptance remain
 **Release state:** public, installable pre-release
 **Canonical purpose of this file:** show what is actually present in the repository and what remains private or unfinished.
 
@@ -11,6 +11,7 @@
 | Repository shape | Complete | Native Hermes distribution manifest, root profile files, skills, configuration, onboarding, tests, and architecture have clear homes. |
 | Clean profile installation | Working | The repository installs directly through `hermes profile install` into an isolated Hermes home. |
 | Profile authority contract | Initial public version | Generic, review-gated, and free of private paths or identities. |
+| SOUL capability wording reconciliation | Blocked pending owner approval | The protected file still describes cover-letter outlines rather than the now-packaged full drafting/rendering/audit capability; authority limits remain conservative and correct. |
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
 | Career matching profile schema | Initial public version | Versioned hard gates, role families, query vocabulary, exclusions, unsupported claims, and stretch-policy contract with no adopter data. |
 | Career evidence-bank schema | Initial public version | Versioned evidence units, verification states, ownership/assistance boundaries, metrics provenance, and limitations. |
@@ -26,7 +27,7 @@
 | Application-packet skill | Initial public version | Defines one-opportunity private dossier structure, evidence manifest, independent artefact states, approval gates, rendered-output provenance, and application lifecycle transitions. |
 | Cover-letter drafting skill | Initial public version | Four-source authorship model, shared notes/draft workspace, evidence and voice checks, explicit human approval, and clean-source handoff. |
 | Source-registry maintenance skill | Initial public version | Separates source evaluation from runtime search, preserves Markdown rationale plus YAML configuration, and requires explicit approval before local registry mutation. |
-| Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert template; every source is disabled pending local verification. |
+| Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert catalogue; jurisdiction selection is blank and every source is disabled/not configured pending adopter verification. |
 | Source decision-record template | Initial public version | Separates human rationale from executable configuration. |
 | Job-discovery runtime skill | Initial public version | Registry-gated bounded search, normalized posting contracts, source-health states, employer-original verification, synthetic acceptance cases, and review-ready output template. |
 | Job-discovery skill research | Decision implemented | Candidate audit and clean-room boundary produced the public `job-discovery` runtime skill; source onboarding remains separate. |
@@ -57,12 +58,11 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Next build sequence
 
-1. Add the application-packet and résumé-drafting contracts that consume the public matching and evidence schemas.
-2. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
-3. Add deterministic résumé and cover-letter rendering.
-4. Add employer intelligence and portfolio/profile audit procedures.
-5. Complete clean-profile acceptance, release, update, and rollback documentation.
-6. Repeat clean-install, leakage, provenance, and human semantic review against the expanded package before a tagged release.
+1. Add coherent synthetic posting, source-failure, application, and refusal fixtures.
+2. Expand the validator across schemas, plugins, binaries, provenance, and semantic privacy terms.
+3. Run full disposable-profile capability and refusal acceptance.
+4. Add update, rollback, migration, and release instructions.
+5. Repeat leakage, provenance, Git-history, and human semantic review before publication.
 
 ## Migration rule
 

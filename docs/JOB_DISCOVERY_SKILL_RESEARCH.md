@@ -263,7 +263,7 @@ The inspected skill preview combines conversational onboarding, Python search sc
 
 ### Build, do not patch
 
-Implement `skills/job-discovery/SKILL.md` as a clean-room public version of the existing private review draft, subordinate to `job-hunter-core` and driven by `source_registry.local.yaml`.
+Implement `skills/job-discovery/SKILL.md` as a clean-room public version of the existing private review draft, subordinate to `job-hunter-core` and driven by `job_source_registry.local.yaml`.
 
 Capture these external micro-procedures with attribution:
 
@@ -302,7 +302,7 @@ skills/
 templates/
 ├── matching_profile.example.yaml
 ├── evidence_bank.example.yaml
-├── source_registry.example.yaml
+├── job_source_registry.example.yaml
 └── job_search_run.example.md
 
 tests/fixtures/job_discovery/

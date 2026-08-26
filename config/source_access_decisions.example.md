@@ -1,6 +1,6 @@
 # Source Access Decisions
 
-This is the human-readable companion to `source_registry.local.yaml`. Keep operational reasoning here; keep executable settings in YAML.
+This is the human-readable companion to `job_source_registry.local.yaml`. Keep operational reasoning here; keep executable settings in YAML.
 
 ## Review metadata
 

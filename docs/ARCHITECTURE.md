@@ -12,8 +12,8 @@ Hermes Job Hunter separates runtime identity, reusable procedure, private config
 └──────────────────────┬───────────────────────┘
                        ↓
 ┌──────────────────────────────────────────────┐
-│ Skills                                       │
-│ Reusable procedures and output contracts     │
+│ Skills and bounded plugin                    │
+│ Procedures, rendering tools, output contracts│
 └──────────────────────┬───────────────────────┘
                        ↓
 ┌──────────────────────────────────────────────┐
@@ -31,7 +31,7 @@ Hermes Job Hunter separates runtime identity, reusable procedure, private config
 
 ## Package versus live profile
 
-The repository root is a native Hermes profile distribution. `distribution.yaml`, `SOUL.md`, `config.yaml`, and `skills/` are installed as the agent; the remaining directories contain reusable schemas, templates, onboarding, development documentation, and acceptance tests.
+The repository root is a native Hermes profile distribution. `distribution.yaml`, `SOUL.md`, `config.yaml`, `skills/`, and `plugins/` are installed as the agent; the remaining directories contain reusable schemas, synthetic examples, onboarding, development documentation, and acceptance tests.
 
 A live installation contains private values:
 
@@ -75,7 +75,7 @@ These states survive into the final report. A source returning three indexed sni
 Two files do different jobs:
 
 - `source_access_decisions.local.md` records rationale, trade-offs, exclusions, and review decisions;
-- `source_registry.local.yaml` supplies stable fields the discovery skill can execute consistently.
+- `job_source_registry.local.yaml` supplies stable fields the discovery skill can execute consistently.
 
 The skill reads YAML. Humans maintain the Markdown rationale. Git history records changes without forcing prose to behave like configuration.
 
@@ -154,6 +154,38 @@ Failures remain explicit:
 5. request setup or authority expansion as a separate human decision;
 6. never fabricate completion or route around a restriction.
 
-## Configuration still to be added
+## Application and document flow
 
-The source registry exists. Matching-profile and evidence-bank schemas are the next configuration layers. They will remain private in live use and ship only as blank or synthetic examples.
+```text
+verified posting + employer intelligence + matching/evidence contracts
+                              ↓
+                    private application packet
+                              ↓
+          human-approved draft brief and Markdown source
+                              ↓
+         deterministic DOCX/PDF render + mechanical QA
+                              ↓
+                    actual page-image review
+                              ↓
+              separate human external-use approval
+                              ↓
+       submission remains outside the default agent authority
+```
+
+The renderer plugin writes only inside the active profile workspace's `applications/` or `resumes/` packets. It is a local production tool, not submission authority.
+
+## Audit and decision procedures
+
+The package also provides bounded employer, GitHub portfolio, CV, LinkedIn, and credential-ROI procedures. They all inherit the same evidence labels and external-action limits. Authenticated cloud, private GitHub, messaging, Kanban, and cron remain optional integrations rather than hidden core dependencies.
+
+## Configuration layers present
+
+The package ships:
+
+- an inert source catalogue requiring local market selection and testing;
+- source-maintenance and discovery procedures;
+- versioned matching-profile and evidence-bank schemas;
+- a coherent fictional candidate example;
+- private-workspace packet, drafting, and rendering contracts.
+
+Live values remain adopter-owned. The repository never ships a real candidate profile, enabled source state, access dates, application history, or voice samples.

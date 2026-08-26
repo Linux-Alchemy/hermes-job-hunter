@@ -44,7 +44,7 @@ config/source_access_decisions.local.md
 
 Public examples remain inert:
 
-- [`../../config/source_registry.example.yaml`](../../config/source_registry.example.yaml)
+- [`../../config/job_source_registry.example.yaml`](../../config/job_source_registry.example.yaml)
 - [`../../config/source_access_decisions.example.md`](../../config/source_access_decisions.example.md)
 
 Never write live access dates, account identifiers, credentials, cookies, private alert contents, or personal contact data into the public examples.

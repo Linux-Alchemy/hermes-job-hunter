@@ -20,32 +20,25 @@ The human owns career facts, consequential decisions, public wording, applicatio
 ## How the package fits together
 
 ```text
-distribution.yaml
-    declares the installable Hermes profile and owned paths
+distribution.yaml + SOUL.md + job-hunter-core
+    define the installed profile, evidence model, and authority
             ↓
-SOUL.md
-    defines mission, authority, and non-goals
+local matching profile + evidence bank + job-source registry
+    provide adopter-owned facts, constraints, and approved source state
             ↓
-skills/job-hunter-core/SKILL.md
-    enforces evidence, source, status, and approval rules
+job-discovery + employer-intelligence
+    produce a bounded, verified opportunity decision
             ↓
-skills/cover-letter-drafting/SKILL.md
-    develops one evidence-bounded letter in a shared human-review workspace
+application-packet + drafting skills
+    preserve sources, approvals, wording, and lifecycle state
             ↓
-application-packet + resume-drafting + career-document-rendering
-    preserve approvals, produce controlled DOCX/PDF, and retain QA evidence
+career-document-rendering + packaged plugin
+    produce controlled DOCX/PDF artefacts and QA evidence
             ↓
-config/source_registry.local.yaml
-    tells the discovery skill which sources may run and how
-            ↓
-job-discovery
-    consumes adopter-approved registry and matching evidence
-    to produce a bounded, verified opportunity slate
-            ↓
-human review and external action
+human visual review, external-use approval, and any external action
 ```
 
-The repository ships an inert, Canada-oriented registry example because that is the proven source set available today. Every source starts disabled until the adopter tests it and records the result locally; adopters targeting another jurisdiction should replace the source set and `target_jurisdictions` rather than treating the example as universal.
+The repository ships an inert source catalogue derived from a proven Canada-oriented source set, but it does **not** select Canada—or any jurisdiction—as the adopter's default. Every source starts disabled and `not_configured` until the adopter chooses a market, tests the route, and records the result locally. Adopters targeting another jurisdiction should keep only relevant sources rather than treating the catalogue as universal.
 
 ## Repository map
 
@@ -119,7 +112,7 @@ hermes-job-hunter/
 │       ├── templates/
 │       └── tests/
 ├── config/
-│   ├── source_registry.example.yaml
+│   ├── job_source_registry.example.yaml
 │   └── source_access_decisions.example.md
 ├── docs/
 │   ├── ARCHITECTURE.md

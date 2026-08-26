@@ -15,7 +15,7 @@ plugins:
     career-document-production:
       allow_tool_override: false
 
-# Start with the minimum read/draft tool surface.
+# Start with the bounded read/draft/render tool surface required by the package.
 # Add messaging, cron, cloud, Kanban, or browser integrations only after
 # reviewing their authority and updating the profile contract.
 platform_toolsets:

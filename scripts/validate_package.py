@@ -32,7 +32,7 @@ REQUIRED = [
     "plugins/career-document-production/schemas.py",
     "plugins/career-document-production/tools.py",
     "plugins/career-document-production/templates/resume_template.docx",
-    "config/source_registry.example.yaml",
+    "config/job_source_registry.example.yaml",
     "config/source_access_decisions.example.md",
     "docs/ARCHITECTURE.md",
     "onboarding/voice_calibration.md",
@@ -100,7 +100,7 @@ def validate_distribution() -> None:
 
 
 def validate_registry() -> tuple[int, int]:
-    path = ROOT / "config/source_registry.example.yaml"
+    path = ROOT / "config/job_source_registry.example.yaml"
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
     if data.get("schema_version") != 1:
         fail("unsupported source-registry schema")
