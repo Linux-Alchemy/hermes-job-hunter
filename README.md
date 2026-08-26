@@ -73,6 +73,10 @@ hermes-job-hunter/
 │   ├── source-registry-maintenance/
 │   │   ├── SKILL.md
 │   │   └── templates/
+│   ├── employer-intelligence/
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── templates/
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/
