@@ -2,7 +2,7 @@
 
 A reusable Hermes specialist profile for evidence-bounded job discovery, fit analysis, and application drafting.
 
-> **Status:** capability-parity, installable pre-release. Core policy, career schemas, discovery, source maintenance, employer intelligence, application packets, drafting, deterministic DOCX/PDF production, portfolio/profile audits, credential decisions, and synthetic acceptance fixtures are packaged. Disposable-profile acceptance passed; verified remote publication remains.
+> **Status:** capability-parity, installable pre-release. Core policy, career schemas, discovery, source maintenance, employer intelligence, application packets, drafting, deterministic DOCX/PDF production, portfolio/profile audits, credential decisions, and synthetic acceptance fixtures are packaged. Disposable-profile and clean remote-clone acceptance passed; the published remote revision was verified against local `master`.
 
 ## What it is
 

@@ -1,7 +1,7 @@
 # Project Status
 
 **Package state:** live-profile capability parity and disposable-profile acceptance complete
-**Release state:** public, installable pre-release
+**Release state:** published, installable pre-release with verified remote-clone acceptance
 **Canonical purpose of this file:** show what is actually present in the repository and what remains private or unfinished.
 
 ## Implemented in this repository
@@ -58,9 +58,8 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Next build sequence
 
-1. Publish the rewritten, validated pre-release history and verify the remote revision.
-2. Gather adopter feedback without importing private runtime data into the package.
-3. Promote to the first stable version only after the procedural workflows have enough real, bounded use to justify the compatibility promise.
+1. Gather adopter feedback without importing private runtime data into the package.
+2. Promote to the first stable version only after the procedural workflows have enough real, bounded use to justify the compatibility promise.
 
 ## Migration rule
 
