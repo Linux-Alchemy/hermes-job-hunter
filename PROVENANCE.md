@@ -9,7 +9,7 @@ The private profile is used as operational evidence. Private runtime files are n
 | Repository artefact | Classification | Source and treatment |
 |---|---|---|
 | `distribution.yaml` | Clean-room authored | Native Hermes distribution manifest defining the pre-release identity and distribution-owned paths. No credentials or private runtime state are represented. |
-| `LICENSE` | Standard licence text | MIT licence applied by the repository owner; copyright held by Matt Klimo. |
+| `LICENSE` | Standard licence text | MIT licence applied by the repository owner; copyright attributed to the public project handle `Linux-Alchemy`. |
 | `SOUL.md` | Clean-room authored | Reconstructed from the proven mission, evidence contract, authority limits, and failure posture. Personal names, paths, integrations, and career facts were excluded. |
 | `config.yaml` | Clean-room authored | Minimal read-and-draft Hermes configuration promoted from the reviewed public example. Model, provider, credentials, messaging, and private integrations remain adopter-owned. |
 | `skills/job-hunter-core/SKILL.md` | Clean-room authored | Reconstructed from the live core procedure. User-specific source precedence, storage paths, messaging, cloud, Kanban, cron, and writing-skill names were replaced by generic contracts. |

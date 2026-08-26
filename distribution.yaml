@@ -2,7 +2,7 @@ name: hermes-job-hunter
 version: 0.2.0
 description: "Pre-release Hermes career evidence and job-search specialist"
 hermes_requires: ">=0.12.0"
-author: "Matt Klimo / Linux-Alchemy"
+author: "Linux-Alchemy"
 license: "MIT"
 
 distribution_owned:
