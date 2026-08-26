@@ -143,7 +143,7 @@ The validator requires Python and PyYAML, both of which are already present in a
 python scripts/validate_package.py
 ```
 
-It checks required files, YAML structure, skill frontmatter, relative links, symlinks, and common secret/PII leakage patterns. The packaged renderer also has an executable seven-case test suite under `plugins/career-document-production/tests/`.
+It checks required files, YAML structure, skill frontmatter, relative links, symlinks, and common secret/PII leakage patterns. The packaged renderer also has an executable ten-case test suite under `plugins/career-document-production/tests/`.
 
 ### Renderer prerequisites
 

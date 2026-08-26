@@ -69,7 +69,7 @@ The plugin enforces:
 - refusal to overwrite an existing fresh-render version;
 - approved `resume` or `cover_letter` source type;
 - required-font availability before creation;
-- controlled DOCX styles using 9–12-point `JetBrainsMono NF`;
+- controlled DOCX styles and actual embedded PDF fonts using `JetBrainsMono NF`;
 - no tables, drawings, text boxes, macros, headers, or footers;
 - token-for-token DOCX/PDF agreement with approved Markdown after markup normalization;
 - a real PDF text layer;
@@ -153,7 +153,7 @@ Working artefacts remain editable for authorised layout review until the human m
 - [ ] Source type and approval metadata passed the plugin gate.
 - [ ] Correct packet and next unused version were used.
 - [ ] Required-font availability passed before document creation.
-- [ ] QA confirms controlled styles use `JetBrainsMono NF` at 9–12 points.
+- [ ] QA confirms controlled styles and embedded PDF fonts use `JetBrainsMono NF` at 9–12 points.
 - [ ] Mechanical QA passed or exact failures were reported.
 - [ ] Résumé is no more than two pages; cover letter is exactly one page.
 - [ ] Every page preview received actual visual inspection.

@@ -11,7 +11,7 @@ import subprocess
 import tempfile
 import unicodedata
 import zipfile
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
@@ -20,8 +20,13 @@ PLUGIN_DIR = Path(__file__).resolve().parent
 TEMPLATE_PATH = PLUGIN_DIR / "templates" / "resume_template.docx"
 MAX_PAGES = 2
 MAX_PDF_BYTES = 2_500_000
+MAX_SOURCE_BYTES = 100_000
+MAX_SLUG_LENGTH = 100
+MAX_VERSION = 9_999
+MAX_ANCHOR_LENGTH = 500
 REQUIRED_FONT = "JetBrainsMono NF"
 REQUIRED_FONT_ALIASES = {REQUIRED_FONT, "JetBrainsMono Nerd Font"}
+REQUIRED_PDF_FONT_PREFIXES = ("JetBrainsMonoNF-", "JetBrainsMonoNerdFont-")
 MIN_FONT_PT = 9.0
 MAX_FONT_PT = 12.0
 PAGE_LIMITS = {"resume": 2, "cover_letter": 1}
@@ -69,7 +74,8 @@ def available() -> bool:
     except Exception:
         return False
     return TEMPLATE_PATH.is_file() and all(
-        shutil.which(command) for command in ("soffice", "pdfinfo", "pdftotext", "pdftoppm")
+        shutil.which(command)
+        for command in ("soffice", "pdfinfo", "pdftotext", "pdftoppm", "pdffonts", "fc-match")
     )
 
 
@@ -149,22 +155,36 @@ def _validate_artifact_path(path: Path, packet: Path, suffix: str) -> Path:
     return resolved
 
 
-def _split_frontmatter(text: str) -> tuple[dict[str, str], str]:
+def _validated_output_dir(packet: Path) -> Path:
+    output_dir = packet / "outputs"
+    if output_dir.exists():
+        if output_dir.is_symlink() or not output_dir.is_dir():
+            raise ValueError("Packet outputs path must be a real directory, not a symlink")
+    else:
+        output_dir.mkdir(mode=0o700, parents=True)
+    if not _contained(output_dir.resolve(), packet.resolve()):
+        raise ValueError("Packet outputs path escapes the packet root")
+    return output_dir
+
+
+def _split_frontmatter(text: str) -> tuple[dict[str, Any], str]:
     if not text.startswith("---\n"):
         return {}, text
     end = text.find("\n---\n", 4)
     if end < 0:
         return {}, text
-    fields: dict[str, str] = {}
-    for raw in text[4:end].splitlines():
-        if ":" not in raw or raw.lstrip().startswith("#"):
-            continue
-        key, value = raw.split(":", 1)
-        fields[key.strip()] = value.strip().strip('"\'')
+    import yaml
+
+    loaded = yaml.load(text[4:end], Loader=yaml.BaseLoader)
+    if not isinstance(loaded, dict):
+        raise ValueError("Frontmatter must be a YAML mapping")
+    fields = {str(key): value for key, value in loaded.items()}
     return fields, text[end + 5 :]
 
 
-def _approval_check(source: Path) -> tuple[dict[str, str], str]:
+def _approval_check(source: Path) -> tuple[dict[str, Any], str]:
+    if source.stat().st_size > MAX_SOURCE_BYTES:
+        raise ValueError(f"Approved source exceeds {MAX_SOURCE_BYTES} bytes")
     fields, body = _split_frontmatter(source.read_text(encoding="utf-8"))
     errors = []
     document_type = fields.get("document_type", "")
@@ -172,10 +192,20 @@ def _approval_check(source: Path) -> tuple[dict[str, str], str]:
         errors.append("document_type must be resume or cover_letter")
     if fields.get("lifecycle_state") != "APPROVED_MARKDOWN":
         errors.append("lifecycle_state must be APPROVED_MARKDOWN")
-    approver = fields.get("approved_by", "").strip()
+    approver = str(fields.get("approved_by") or "").strip()
     if approver.casefold() in {"", "null", "none", "unknown"}:
         errors.append("approved_by must name the human approver")
-    if not DATE_RE.fullmatch(fields.get("approved_at", "")):
+    approved_at = fields.get("approved_at")
+    try:
+        if isinstance(approved_at, datetime):
+            raise ValueError
+        if isinstance(approved_at, date):
+            approved_date = approved_at
+        else:
+            approved_date = date.fromisoformat(str(approved_at))
+        if approved_date.isoformat() != str(approved_at):
+            raise ValueError
+    except (TypeError, ValueError):
         errors.append("approved_at must be YYYY-MM-DD")
     if errors:
         raise ValueError("; ".join(errors))
@@ -246,7 +276,7 @@ def _render_resume(doc: Any, body: str) -> None:
             _add_inline(p, line[4:].strip())
         elif re.match(r"^[-*+]\s+", line):
             p = doc.add_paragraph(style="Resume Bullet")
-            _add_inline(p, re.sub(r"^[-*+]\s+", "", line))
+            _add_inline(p, "• " + re.sub(r"^[-*+]\s+", "", line))
         else:
             style = "Resume Contact" if before_first_section else "Resume Body"
             p = doc.add_paragraph(style=style)
@@ -293,7 +323,7 @@ def _render_docx(body: str, output: Path, title: str, document_type: str) -> Non
 
     doc.core_properties.title = title
     doc.core_properties.subject = "Résumé" if document_type == "resume" else "Cover Letter"
-    doc.core_properties.author = "Hermes Job Hunter"
+    doc.core_properties.author = ""
     doc.core_properties.keywords = document_type
     doc.save(output)
 
@@ -325,6 +355,15 @@ def _docx_text_and_shape(path: Path) -> tuple[str, dict[str, Any]]:
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
         document = ET.fromstring(archive.read("word/document.xml"))
+        external_relationships: list[str] = []
+        for name in sorted(item for item in names if item.endswith(".rels")):
+            relationships = ET.fromstring(archive.read(name))
+            for relationship in relationships:
+                if relationship.attrib.get("TargetMode") == "External":
+                    external_relationships.append(relationship.attrib.get("Target", ""))
+        columns = []
+        for node in document.iter(f"{W_NS}cols"):
+            columns.append(int(node.attrib.get(f"{W_NS}num", "1")))
         text = "\n".join(
             "".join(node.text or "" for node in paragraph.iter(f"{W_NS}t"))
             for paragraph in document.iter(f"{W_NS}p")
@@ -336,6 +375,15 @@ def _docx_text_and_shape(path: Path) -> tuple[str, dict[str, Any]]:
             "headers": sorted(name for name in names if re.fullmatch(r"word/header\d+\.xml", name)),
             "footers": sorted(name for name in names if re.fullmatch(r"word/footer\d+\.xml", name)),
             "macros": sorted(name for name in names if "vbaProject" in name or name.endswith(".bin")),
+            "external_relationships": external_relationships,
+            "embedded_objects": sorted(name for name in names if name.startswith("word/embeddings/")),
+            "comments": sorted(name for name in names if name.startswith("word/comments")),
+            "alt_chunks": len(list(document.iter(f"{W_NS}altChunk"))),
+            "tracked_changes": sum(
+                len(list(document.iter(f"{W_NS}{tag}")))
+                for tag in ("ins", "del", "moveFrom", "moveTo")
+            ),
+            "column_counts": columns,
         }
     return text, shape
 
@@ -366,6 +414,22 @@ def _pdf_pages(path: Path) -> int:
     return int(match.group(1))
 
 
+def _pdf_fonts(path: Path) -> list[str]:
+    result = _run([shutil.which("pdffonts") or "pdffonts", str(path)])
+    fonts: list[str] = []
+    for raw in result.stdout.splitlines():
+        line = raw.strip()
+        if not line or line.startswith("name") or line.startswith("-"):
+            continue
+        name = line.split()[0]
+        if "+" in name:
+            name = name.split("+", 1)[1]
+        fonts.append(name)
+    if not fonts:
+        raise RuntimeError("pdffonts did not report any fonts")
+    return sorted(set(fonts))
+
+
 def _render_previews(path: Path, output_prefix: Path) -> list[Path]:
     _run([
         shutil.which("pdftoppm") or "pdftoppm",
@@ -386,6 +450,7 @@ def _qa(source: Path, docx_path: Path, pdf_path: Path, work_dir: Path) -> dict[s
     extracted = work_dir / f"{pdf_path.stem}_extracted.txt"
     pdf_text = _pdf_text(pdf_path, extracted)
     pages = _pdf_pages(pdf_path)
+    pdf_fonts = _pdf_fonts(pdf_path)
     preview_dir = work_dir / f"{pdf_path.stem}_preview"
     preview_dir.mkdir(parents=True, exist_ok=True)
     previews = _render_previews(pdf_path, preview_dir / "page")
@@ -412,11 +477,20 @@ def _qa(source: Path, docx_path: Path, pdf_path: Path, work_dir: Path) -> dict[s
         "docx_has_no_textboxes": shape["textboxes"] == 0,
         "docx_has_no_headers_or_footers": not shape["headers"] and not shape["footers"],
         "docx_has_no_macros": not shape["macros"],
+        "docx_has_no_external_relationships": not shape["external_relationships"],
+        "docx_has_no_embedded_objects": not shape["embedded_objects"],
+        "docx_has_no_comments": not shape["comments"],
+        "docx_has_no_alt_chunks": shape["alt_chunks"] == 0,
+        "docx_has_no_tracked_changes": shape["tracked_changes"] == 0,
+        "docx_is_single_column": all(count == 1 for count in shape["column_counts"]),
         "docx_text_matches_source": docx_tokens == source_tokens,
         "pdf_text_matches_source": pdf_tokens == source_tokens,
         "pdf_has_text_layer": bool(pdf_text.strip()),
         "docx_uses_required_font": fonts_ok,
         "docx_font_sizes_within_range": font_sizes_ok,
+        "pdf_uses_required_fonts": all(
+            font.startswith(REQUIRED_PDF_FONT_PREFIXES) for font in pdf_fonts
+        ),
         "pdf_page_count_within_limit": 1 <= pages <= page_limit,
         "pdf_below_parser_size_limit": pdf_path.stat().st_size < MAX_PDF_BYTES,
         "preview_count_matches_pages": len(previews) == pages,
@@ -435,8 +509,9 @@ def _qa(source: Path, docx_path: Path, pdf_path: Path, work_dir: Path) -> dict[s
             "maximum_pt": MAX_FONT_PT,
         },
         "font_profile": font_profile,
+        "pdf_fonts": pdf_fonts,
         "source_sha256": _sha256(source),
-        "template": str(TEMPLATE_PATH),
+        "template": TEMPLATE_PATH.name,
         "template_sha256": _sha256(TEMPLATE_PATH),
         "docx_sha256": _sha256(docx_path),
         "pdf_sha256": _sha256(pdf_path),
@@ -447,7 +522,6 @@ def _qa(source: Path, docx_path: Path, pdf_path: Path, work_dir: Path) -> dict[s
 
 
 def _atomic_publish(work_dir: Path, output_dir: Path, stem: str) -> dict[str, Path]:
-    output_dir.mkdir(parents=True, exist_ok=True)
     names = {
         "docx": f"{stem}.docx",
         "pdf": f"{stem}.pdf",
@@ -459,10 +533,60 @@ def _atomic_publish(work_dir: Path, output_dir: Path, stem: str) -> dict[str, Pa
     for path in destinations.values():
         if path.exists():
             raise FileExistsError(f"Refusing to overwrite existing artifact: {path}")
+    placed: list[Path] = []
+    try:
+        for key in ("docx", "pdf", "extracted", "preview", "qa"):
+            os.replace(work_dir / names[key], destinations[key])
+            placed.append(destinations[key])
+    except Exception:
+        for path in reversed(placed):
+            if path.is_dir():
+                shutil.rmtree(path)
+            elif path.exists():
+                path.unlink()
+        raise
     for key in ("docx", "pdf", "extracted", "qa"):
-        os.replace(work_dir / names[key], destinations[key])
-    os.replace(work_dir / names["preview"], destinations["preview"])
+        destinations[key].chmod(0o600)
     return destinations
+
+
+def _replace_existing_set(work_dir: Path, output_dir: Path, stem: str) -> None:
+    names = [
+        f"{stem}.docx",
+        f"{stem}.pdf",
+        f"{stem}_extracted.txt",
+        f"{stem}_preview",
+        f"{stem}_qa.json",
+    ]
+    destinations = [output_dir / name for name in names]
+    if not all(path.exists() for path in destinations):
+        raise FileNotFoundError("Layout revision requires a complete existing artifact set")
+
+    backup = work_dir / "rollback"
+    backup.mkdir()
+    moved_old: list[tuple[Path, Path]] = []
+    moved_new: list[Path] = []
+    try:
+        for destination in destinations:
+            saved = backup / destination.name
+            os.replace(destination, saved)
+            moved_old.append((saved, destination))
+        for destination in destinations:
+            os.replace(work_dir / destination.name, destination)
+            moved_new.append(destination)
+    except Exception:
+        for destination in reversed(moved_new):
+            if destination.is_dir():
+                shutil.rmtree(destination)
+            elif destination.exists():
+                destination.unlink()
+        for saved, destination in reversed(moved_old):
+            if saved.exists():
+                os.replace(saved, destination)
+        raise
+    for destination in destinations:
+        if destination.is_file():
+            destination.chmod(0o600)
 
 
 def render_approved(args: dict[str, Any], **_: Any) -> str:
@@ -477,20 +601,19 @@ def render_approved(args: dict[str, Any], **_: Any) -> str:
             )
         source = Path(str(args.get("source_markdown", "")))
         slug = str(args.get("document_slug", "")).strip()
-        if not SLUG_RE.fullmatch(slug):
+        if len(slug) > MAX_SLUG_LENGTH or not SLUG_RE.fullmatch(slug):
             return _fail("document_slug must be snake_case")
         version = int(args.get("version", 0))
-        if version < 1:
-            return _fail("version must be at least 1")
+        if not 1 <= version <= MAX_VERSION:
+            return _fail(f"version must be between 1 and {MAX_VERSION}")
         packet = _validate_source_path(source)
         fields, body = _approval_check(source)
-        output_dir = packet / "outputs"
+        output_dir = _validated_output_dir(packet)
         stem = f"{slug}_v{version}"
         existing = [output_dir / f"{stem}.docx", output_dir / f"{stem}.pdf", output_dir / f"{stem}_qa.json"]
         if any(path.exists() for path in existing):
             return _fail("Refusing to overwrite an existing version", existing=[str(p) for p in existing if p.exists()])
 
-        output_dir.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(prefix=f".{stem}-", dir=output_dir) as temp:
             work = Path(temp)
             docx_path = work / f"{stem}.docx"
@@ -502,11 +625,17 @@ def render_approved(args: dict[str, Any], **_: Any) -> str:
             )
             pdf_path = _convert_pdf(docx_path, work, work / "lo-profile")
             qa = _qa(source, docx_path, pdf_path, work)
+            if not qa["validation_passed"]:
+                return _fail(
+                    "Rendered artifacts failed QA and were not published",
+                    checks=qa["checks"],
+                    page_count=qa["page_count"],
+                )
             qa.update({
                 "tool": "resume_render_approved",
                 "generated_at": datetime.now(timezone.utc).isoformat(),
-                "source": str(source.resolve()),
-                "packet_root": str(packet),
+                "source": str(source.resolve().relative_to(packet.resolve())),
+                "packet_root": ".",
                 "document_slug": slug,
                 "version": version,
                 "lifecycle_state": "VALIDATED" if qa["validation_passed"] else "RENDERED_VALIDATION_FAILED",
@@ -514,9 +643,9 @@ def render_approved(args: dict[str, Any], **_: Any) -> str:
                 "next_owner": "human decision owner",
                 "next_action": "Review rendered page previews and approve or request changes.",
             })
-            qa["extracted_text"] = str(output_dir / f"{stem}_extracted.txt")
+            qa["extracted_text"] = f"{stem}_extracted.txt"
             qa["previews"] = [
-                str(output_dir / f"{stem}_preview" / Path(path).name)
+                f"{stem}_preview/{Path(path).name}"
                 for path in qa["previews"]
             ]
             (work / f"{stem}_qa.json").write_text(_json(qa) + "\n", encoding="utf-8")
@@ -542,9 +671,10 @@ def validate_artifacts(args: dict[str, Any], **_: Any) -> str:
             return _fail("Required validation dependencies are unavailable")
         source = Path(str(args.get("source_markdown", "")))
         packet = _validate_source_path(source)
+        output_dir = _validated_output_dir(packet)
         docx_path = _validate_artifact_path(Path(str(args.get("docx_path", ""))), packet, ".docx")
         pdf_path = _validate_artifact_path(Path(str(args.get("pdf_path", ""))), packet, ".pdf")
-        with tempfile.TemporaryDirectory(prefix=".resume-qa-", dir=packet / "outputs") as temp:
+        with tempfile.TemporaryDirectory(prefix=".resume-qa-", dir=output_dir) as temp:
             qa = _qa(source, docx_path, pdf_path, Path(temp))
             preview_count = len(qa.pop("previews"))
             qa.pop("extracted_text", None)
@@ -607,15 +737,18 @@ def revise_layout(args: dict[str, Any], **_: Any) -> str:
 
         source = Path(str(args.get("source_markdown", "")))
         packet = _validate_source_path(source)
-        _approval_check(source)
+        fields, approved_body = _approval_check(source)
+        del approved_body
         original_docx = _validate_artifact_path(Path(str(args.get("docx_path", ""))), packet, ".docx")
         operation = str(args.get("operation", "")).strip()
         anchor_text = str(args.get("anchor_text", "")).strip()
-        if not anchor_text:
-            return _fail("anchor_text is required")
+        if not anchor_text or len(anchor_text) > MAX_ANCHOR_LENGTH:
+            return _fail(f"anchor_text is required and must not exceed {MAX_ANCHOR_LENGTH} characters")
+        if operation == "keep_block_together" and fields["document_type"] != "resume":
+            return _fail("keep_block_together is supported only for résumés")
 
         stem = original_docx.stem
-        output_dir = packet / "outputs"
+        output_dir = _validated_output_dir(packet)
         original_pdf = output_dir / f"{stem}.pdf"
         original_qa = output_dir / f"{stem}_qa.json"
         if not original_pdf.is_file() or not original_qa.is_file():
@@ -632,11 +765,17 @@ def revise_layout(args: dict[str, Any], **_: Any) -> str:
             revision = _apply_layout_revision(revised_docx, operation, anchor_text)
             revised_pdf = _convert_pdf(revised_docx, work, work / "lo-profile")
             qa = _qa(source, revised_docx, revised_pdf, work)
+            if not qa["validation_passed"]:
+                return _fail(
+                    "Layout revision failed QA; original artifacts were preserved",
+                    checks=qa["checks"],
+                    page_count=qa["page_count"],
+                )
             qa.update({
                 "tool": "resume_revise_layout",
                 "generated_at": datetime.now(timezone.utc).isoformat(),
-                "source": str(source.resolve()),
-                "packet_root": str(packet),
+                "source": str(source.resolve().relative_to(packet.resolve())),
+                "packet_root": ".",
                 "lifecycle_state": "VALIDATED" if qa["validation_passed"] else "RENDERED_VALIDATION_FAILED",
                 "ready_for_external_use": False,
                 "layout_revision": revision,
@@ -644,18 +783,10 @@ def revise_layout(args: dict[str, Any], **_: Any) -> str:
                 "next_owner": "human decision owner",
                 "next_action": "Inspect every regenerated page preview, update the visual review, then return the artifact to the human decision owner.",
             })
-            qa["extracted_text"] = str(output_dir / f"{stem}_extracted.txt")
-            qa["previews"] = [str(output_dir / f"{stem}_preview" / Path(path).name) for path in qa["previews"]]
+            qa["extracted_text"] = f"{stem}_extracted.txt"
+            qa["previews"] = [f"{stem}_preview/{Path(path).name}" for path in qa["previews"]]
             (work / f"{stem}_qa.json").write_text(_json(qa) + "\n", encoding="utf-8")
-
-            preview_target = output_dir / f"{stem}_preview"
-            if preview_target.exists():
-                shutil.rmtree(preview_target)
-            os.replace(revised_docx, original_docx)
-            os.replace(revised_pdf, original_pdf)
-            os.replace(work / f"{stem}_extracted.txt", output_dir / f"{stem}_extracted.txt")
-            os.replace(work / f"{stem}_preview", preview_target)
-            os.replace(work / f"{stem}_qa.json", original_qa)
+            _replace_existing_set(work, output_dir, stem)
 
         return _json({
             "success": True,

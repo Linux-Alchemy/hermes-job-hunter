@@ -103,12 +103,15 @@ class ResumeToolsE2E(unittest.TestCase):
         self.assertEqual(result["page_count"], 1)
         self.assertTrue(result["checks"]["docx_uses_required_font"])
         self.assertTrue(result["checks"]["docx_font_sizes_within_range"])
+        self.assertTrue(result["checks"]["pdf_uses_required_fonts"])
         self.assertFalse(result["ready_for_external_use"])
         for key in ("docx", "pdf", "extracted", "preview", "qa"):
             self.assertTrue(Path(result["artifacts"][key]).exists(), key)
-        qa = json.loads(Path(result["artifacts"]["qa"]).read_text(encoding="utf-8"))
-        self.assertTrue(Path(qa["extracted_text"]).exists())
-        self.assertTrue(all(Path(path).exists() for path in qa["previews"]))
+        qa_path = Path(result["artifacts"]["qa"])
+        qa = json.loads(qa_path.read_text(encoding="utf-8"))
+        self.assertTrue((qa_path.parent / qa["extracted_text"]).exists())
+        self.assertTrue(all((qa_path.parent / path).exists() for path in qa["previews"]))
+        self.assertTrue(all(font.startswith("JetBrainsMono") for font in qa["pdf_fonts"]))
 
         revalidated = json.loads(self.tools.validate_artifacts({
             "source_markdown": str(self.source),
@@ -159,6 +162,20 @@ class ResumeToolsE2E(unittest.TestCase):
         self.assertFalse(result["success"])
         self.assertIn("approved_by", result["error"])
 
+    def test_rejects_invalid_approval_date(self) -> None:
+        self.source.write_text(APPROVED.replace("2026-08-25", "2026-02-30"), encoding="utf-8")
+        result = self.render()
+        self.assertFalse(result["success"])
+        self.assertIn("approved_at", result["error"])
+
+    def test_refuses_outputs_symlink_escape(self) -> None:
+        outside = Path(self.temp.name) / "outside"
+        outside.mkdir()
+        (self.packet / "outputs").symlink_to(outside, target_is_directory=True)
+        result = self.render()
+        self.assertFalse(result["success"])
+        self.assertIn("symlink", result["error"].lower())
+
     def test_authorized_layout_revision_edits_existing_version(self) -> None:
         result = self.render()
         docx_path = Path(result["artifacts"]["docx"])
@@ -193,6 +210,37 @@ class ResumeToolsE2E(unittest.TestCase):
         }))
         self.assertFalse(revised["success"])
         self.assertEqual(self.tools._sha256(docx_path), original_hash)
+
+    def test_failed_layout_qa_preserves_original_artifacts(self) -> None:
+        result = self.render()
+        artifacts = {
+            key: Path(value)
+            for key, value in result["artifacts"].items()
+            if key in {"docx", "pdf", "qa"}
+        }
+        original_hashes = {key: self.tools._sha256(path) for key, path in artifacts.items()}
+        with mock.patch.object(
+            self.tools,
+            "_qa",
+            return_value={
+                "validation_passed": False,
+                "checks": {"forced_failure": False},
+                "page_count": 1,
+            },
+        ):
+            revised = json.loads(self.tools.revise_layout({
+                "source_markdown": str(self.source),
+                "docx_path": str(artifacts["docx"]),
+                "operation": "page_break_before",
+                "anchor_text": "Builder | Example Company",
+                "human_authorized": True,
+            }))
+        self.assertFalse(revised["success"])
+        self.assertIn("preserved", revised["error"])
+        self.assertEqual(
+            {key: self.tools._sha256(path) for key, path in artifacts.items()},
+            original_hashes,
+        )
 
     def test_refuses_path_outside_packet(self) -> None:
         outside = self.root / "unrelated_notes" / "resume.md"

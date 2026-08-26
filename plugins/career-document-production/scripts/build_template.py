@@ -79,7 +79,6 @@ def main() -> None:
     bullet = styles.add_style("Resume Bullet", WD_STYLE_TYPE.PARAGRAPH)
     font(bullet, 9.5)
     paragraph(bullet, after=1.5)
-    bullet.base_style = styles["List Bullet"]
     bullet.paragraph_format.left_indent = Inches(0.2)
     bullet.paragraph_format.first_line_indent = Inches(-0.15)
 
@@ -99,7 +98,7 @@ def main() -> None:
     first = doc.add_paragraph(style=body)
     first.text = ""
     doc.core_properties.title = "Controlled ATS-safe career document template"
-    doc.core_properties.author = "Linux-Alchemy"
+    doc.core_properties.author = ""
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     doc.save(OUTPUT)
     print(OUTPUT)
