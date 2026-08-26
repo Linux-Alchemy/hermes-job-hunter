@@ -77,6 +77,9 @@ hermes-job-hunter/
 │   │   ├── SKILL.md
 │   │   ├── references/
 │   │   └── templates/
+│   ├── application-packet/
+│   │   ├── SKILL.md
+│   │   └── templates/
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/

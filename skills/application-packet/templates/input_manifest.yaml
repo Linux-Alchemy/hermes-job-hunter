@@ -1,0 +1,62 @@
+schema_version: 1
+packet_id: "<employer_slug>--<role_slug>"
+packet_state: identified
+human_decision_owner: "<owner>"
+last_reviewed: null
+
+inputs:
+  - path: "source/job_posting.md"
+    artefact_type: job_posting
+    state: required_missing
+    source_owner: employer
+    version_or_hash: UNKNOWN
+    last_reviewed: null
+    allowed_use: evaluation_and_truthful_tailoring
+    limitations: []
+  - path: "source/company_profile.md"
+    artefact_type: employer_intelligence
+    state: optional_missing
+    source_owner: local_advisory_workflow
+    version_or_hash: UNKNOWN
+    last_reviewed: null
+    allowed_use: evaluation_and_interview_preparation
+    limitations: []
+  - path: "source/fit_brief.md"
+    artefact_type: fit_analysis
+    state: optional_missing
+    source_owner: local_advisory_workflow
+    version_or_hash: UNKNOWN
+    last_reviewed: null
+    allowed_use: application_decision_and_tailoring
+    limitations: []
+  - path: "source/resume_source.md"
+    artefact_type: resume_source
+    state: not_started
+    source_owner: human
+    version_or_hash: UNKNOWN
+    last_reviewed: null
+    allowed_use: draft_only_until_approved
+    limitations: []
+  - path: "source/cover_letter_source.md"
+    artefact_type: cover_letter_source
+    state: not_started
+    source_owner: human
+    version_or_hash: UNKNOWN
+    last_reviewed: null
+    allowed_use: draft_only_until_approved
+    limitations: []
+
+approvals:
+  drafting: null
+  rendering: null
+  external_use: null
+  submission: null
+
+outputs: []
+
+prohibited_content:
+  - credentials
+  - browser_cookies
+  - session_tokens
+  - identity_document_scans
+  - inferred_legal_or_demographic_answers

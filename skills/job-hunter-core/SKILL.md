@@ -7,7 +7,7 @@ license: MIT
 metadata:
   hermes:
     tags: [career, job-search, evidence, authority, applications]
-    related_skills: [cover-letter-drafting, job-discovery, source-registry-maintenance, employer-intelligence]
+    related_skills: [cover-letter-drafting, job-discovery, source-registry-maintenance, employer-intelligence, application-packet]
 ---
 
 # Job Hunter Core
