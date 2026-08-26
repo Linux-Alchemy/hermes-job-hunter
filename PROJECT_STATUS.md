@@ -35,6 +35,7 @@
 | Voice-calibration onboarding | Initial public version | Teaches adopters to calibrate a user-owned overlay without shipping private samples. |
 | Acceptance matrix | Initial version | Defines required success, degraded, stale, refusal, and clean-install tests. |
 | Package validator | Working | Validates structure, YAML, skill frontmatter, links, symlinks, and common leakage patterns. |
+| Release operations | Complete for pre-release | Documents install, update, rollback, history-rewrite migration, release validation, disposable-profile checks, force-with-lease publication, and remote read-back. |
 | Licence | Complete | MIT licence recorded at repository root and in distribution/skill metadata. |
 
 ## Deliberately private
@@ -52,7 +53,6 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- update, rollback, and release instructions;
 - a full-capability clean-profile end-to-end acceptance run;
 - tagged-release notes and version metadata for the first stable release.
 

@@ -2,7 +2,7 @@
 
 A reusable Hermes specialist profile for evidence-bounded job discovery, fit analysis, and application drafting.
 
-> **Status:** installable pre-release. The repository now includes core policy, career schemas, registry-driven discovery, source maintenance, employer intelligence, application packets, résumé and cover-letter drafting, and deterministic DOCX/PDF production. Audit procedures and full release acceptance are still being integrated.
+> **Status:** capability-parity, installable pre-release. Core policy, career schemas, discovery, source maintenance, employer intelligence, application packets, drafting, deterministic DOCX/PDF production, portfolio/profile audits, credential decisions, and synthetic acceptance fixtures are packaged. Final disposable-profile acceptance and verified remote publication remain.
 
 ## What it is
 
@@ -51,6 +51,7 @@ hermes-job-hunter/
 ├── LICENSE
 ├── PROJECT_STATUS.md
 ├── PROVENANCE.md
+├── RELEASE_NOTES.md
 ├── schemas/
 │   ├── career_matching_profile.schema.json
 │   └── career_evidence_bank.schema.json
@@ -117,6 +118,7 @@ hermes-job-hunter/
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── OPTIONAL_INTEGRATIONS.md
+│   ├── RELEASE_OPERATIONS.md
 │   └── JOB_DISCOVERY_SKILL_RESEARCH.md
 ├── onboarding/
 │   └── voice_calibration.md
@@ -132,7 +134,7 @@ hermes-job-hunter/
 
 [PROJECT_STATUS.md](PROJECT_STATUS.md) is the canonical view of what has actually reached this repository. Private runtime notes and live-profile evidence do not count as packaged merely because they exist elsewhere.
 
-The design and source-state model are explained in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). The job-discovery boundary and candidate audit are in [docs/JOB_DISCOVERY_SKILL_RESEARCH.md](docs/JOB_DISCOVERY_SKILL_RESEARCH.md). Authenticated cloud, messaging, Kanban, and scheduling boundaries are in [docs/OPTIONAL_INTEGRATIONS.md](docs/OPTIONAL_INTEGRATIONS.md). Artefact lineage and sanitation status are recorded in [PROVENANCE.md](PROVENANCE.md).
+The design and source-state model are explained in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). The job-discovery boundary and candidate audit are in [docs/JOB_DISCOVERY_SKILL_RESEARCH.md](docs/JOB_DISCOVERY_SKILL_RESEARCH.md). Authenticated cloud, messaging, Kanban, and scheduling boundaries are in [docs/OPTIONAL_INTEGRATIONS.md](docs/OPTIONAL_INTEGRATIONS.md). Installation, update, rollback, history migration, and release verification are in [docs/RELEASE_OPERATIONS.md](docs/RELEASE_OPERATIONS.md). Artefact lineage and sanitation status are recorded in [PROVENANCE.md](PROVENANCE.md).
 
 ## Safety boundary
 
