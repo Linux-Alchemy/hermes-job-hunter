@@ -123,6 +123,7 @@ hermes-job-hunter/
 │   └── source_access_decisions.example.md
 ├── docs/
 │   ├── ARCHITECTURE.md
+│   ├── OPTIONAL_INTEGRATIONS.md
 │   └── JOB_DISCOVERY_SKILL_RESEARCH.md
 ├── onboarding/
 │   └── voice_calibration.md
@@ -134,7 +135,7 @@ hermes-job-hunter/
 
 [PROJECT_STATUS.md](PROJECT_STATUS.md) is the canonical view of what has actually reached this repository. Private runtime notes and live-profile evidence do not count as packaged merely because they exist elsewhere.
 
-The design and source-state model are explained in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). The job-discovery boundary and candidate audit are in [docs/JOB_DISCOVERY_SKILL_RESEARCH.md](docs/JOB_DISCOVERY_SKILL_RESEARCH.md). Artefact lineage and sanitation status are recorded in [PROVENANCE.md](PROVENANCE.md).
+The design and source-state model are explained in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). The job-discovery boundary and candidate audit are in [docs/JOB_DISCOVERY_SKILL_RESEARCH.md](docs/JOB_DISCOVERY_SKILL_RESEARCH.md). Authenticated cloud, messaging, Kanban, and scheduling boundaries are in [docs/OPTIONAL_INTEGRATIONS.md](docs/OPTIONAL_INTEGRATIONS.md). Artefact lineage and sanitation status are recorded in [PROVENANCE.md](PROVENANCE.md).
 
 ## Safety boundary
 
