@@ -2,7 +2,7 @@
 
 **Classification:** clean-room authored from a proven private operational procedure.
 
-The reviewed private `prefect-credential-roi` skill was not copied because it was privately licensed and contained personal career assumptions, paths, jurisdiction defaults, and a dated credential case study.
+The reviewed private credential-ROI skill was not copied because it was privately licensed and contained personal career assumptions, paths, jurisdiction defaults, and a dated credential case study.
 
 The public skill retains these procedural concepts in new wording:
 

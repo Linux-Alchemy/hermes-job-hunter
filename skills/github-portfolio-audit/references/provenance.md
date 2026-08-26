@@ -2,7 +2,7 @@
 
 **Classification:** clean-room authored from a proven private operational procedure.
 
-The public skill preserves these procedures from the reviewed private `prefect-github-portfolio-audit` skill:
+The public skill preserves these procedures from the reviewed private portfolio-audit skill:
 
 - bounded quick/default/complete depths;
 - repository-role assignment;
