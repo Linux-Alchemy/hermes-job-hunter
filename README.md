@@ -88,6 +88,10 @@ hermes-job-hunter/
 │   │   └── templates/
 │   ├── career-document-rendering/
 │   │   └── SKILL.md
+│   ├── github-portfolio-audit/
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── templates/
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/
