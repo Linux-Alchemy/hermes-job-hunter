@@ -13,6 +13,7 @@
 | Profile authority contract | Initial public version | Generic, review-gated, and free of private paths or identities. |
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
 | Cover-letter drafting skill | Initial public version | Four-source authorship model, shared notes/draft workspace, evidence and voice checks, explicit human approval, and clean-source handoff. |
+| Source-registry maintenance skill | Initial public version | Separates source evaluation from runtime search, preserves Markdown rationale plus YAML configuration, and requires explicit approval before local registry mutation. |
 | Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert template; every source is disabled pending local verification. |
 | Source decision-record template | Initial public version | Separates human rationale from executable configuration. |
 | Job-discovery runtime skill | Initial public version | Registry-gated bounded search, normalized posting contracts, source-health states, employer-original verification, synthetic acceptance cases, and review-ready output template. |
@@ -37,7 +38,6 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- the onboarding/maintenance `source-registry-maintenance` skill that proposes registry changes;
 - matching-profile and evidence-bank schemas;
 - application-packet and résumé-drafting skills and templates;
 - deterministic résumé and cover-letter rendering;
@@ -49,8 +49,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Next build sequence
 
-1. Keep the distribution installable while adding the clean-room `source-registry-maintenance` companion to the implemented `job-discovery` skill.
-2. Add the normalized posting, search-run, matching-profile, and evidence-bank contracts.
+1. Add the normalized matching-profile and evidence-bank contracts used by the implemented discovery and source-maintenance skills.
 3. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
 4. Install the proven generic skill into the private specialist profile through local configuration.
 5. Build the smaller `job-source-discovery` onboarding/maintenance skill.
