@@ -58,11 +58,9 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Next build sequence
 
-1. Add coherent synthetic posting, source-failure, application, and refusal fixtures.
-2. Expand the validator across schemas, plugins, binaries, provenance, and semantic privacy terms.
-3. Run full disposable-profile capability and refusal acceptance.
-4. Add update, rollback, migration, and release instructions.
-5. Repeat leakage, provenance, Git-history, and human semantic review before publication.
+1. Publish the rewritten, validated pre-release history and verify the remote revision.
+2. Gather adopter feedback without importing private runtime data into the package.
+3. Promote to the first stable version only after the procedural workflows have enough real, bounded use to justify the compatibility promise.
 
 ## Migration rule
 

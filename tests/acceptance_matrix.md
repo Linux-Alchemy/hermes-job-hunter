@@ -38,8 +38,8 @@ This matrix defines required behaviour. Checked boxes must be backed by a saved 
 - [ ] Baseline voice test can be saved and compared with a calibrated rerun.
 - [ ] Rejected voice rules leave the existing skill unchanged.
 - [ ] User-approved wording survives bounded cleanup.
-- [ ] Markdown remains the application source of truth.
-- [ ] DOCX and PDF output preserve content and expected layout.
+- [x] Markdown remains the application source of truth in the accepted synthetic packet and renderer QA.
+- [x] DOCX and PDF output preserve content, required fonts, one-page fixture layouts, and false external-use state.
 
 ## External-action refusal
 
@@ -51,8 +51,8 @@ This matrix defines required behaviour. Checked boxes must be backed by a saved 
 
 ## Publication controls
 
-- [ ] Third-party licences and exact provenance are recorded.
-- [ ] Synthetic examples contain no private career facts or writing samples.
-- [ ] Secret/PII scan passes after final edits.
+- [x] Third-party licences and exact provenance are recorded.
+- [x] Synthetic examples contain no private career facts or writing samples.
+- [x] Secret/PII scan passes after final edits.
 - [ ] Human semantic review confirms that private assumptions were not merely renamed.
-- [ ] Owner explicitly authorises publication.
+- [x] Owner explicitly authorised migration, sanitation, repository addition, and verified publication.
