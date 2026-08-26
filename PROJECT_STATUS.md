@@ -16,6 +16,7 @@
 | Career evidence-bank schema | Initial public version | Versioned evidence units, verification states, ownership/assistance boundaries, metrics provenance, and limitations. |
 | Synthetic candidate examples | Initial public version | Coherent fictional profile, evidence bank, and source records containing no real identity, contact, employer, or account data. |
 | Employer-intelligence skill | Initial public version | Consolidated company research, acquisition context, review synthesis, metric-conflict handling, role implications, and interview questions into one read-only procedure. |
+| Résumé-drafting skill | Initial public version | Separates general and application-specific drafting, requires a human-approved brief, records evidence/build decisions, preserves authorship boundaries, and hands only approved Markdown to rendering. |
 | Application-packet skill | Initial public version | Defines one-opportunity private dossier structure, evidence manifest, independent artefact states, approval gates, rendered-output provenance, and application lifecycle transitions. |
 | Cover-letter drafting skill | Initial public version | Four-source authorship model, shared notes/draft workspace, evidence and voice checks, explicit human approval, and clean-source handoff. |
 | Source-registry maintenance skill | Initial public version | Separates source evaluation from runtime search, preserves Markdown rationale plus YAML configuration, and requires explicit approval before local registry mutation. |
@@ -43,7 +44,6 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- résumé-drafting skill and templates;
 - deterministic résumé and cover-letter rendering;
 - sanitized portfolio, résumé, and LinkedIn audit procedures;
 - synthetic posting, source-failure, and application fixtures;

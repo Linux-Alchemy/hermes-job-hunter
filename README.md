@@ -80,6 +80,9 @@ hermes-job-hunter/
 │   ├── application-packet/
 │   │   ├── SKILL.md
 │   │   └── templates/
+│   ├── resume-drafting/
+│   │   ├── SKILL.md
+│   │   └── templates/
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/
