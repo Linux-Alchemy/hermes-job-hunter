@@ -12,6 +12,9 @@
 | Clean profile installation | Working | The repository installs directly through `hermes profile install` into an isolated Hermes home. |
 | Profile authority contract | Initial public version | Generic, review-gated, and free of private paths or identities. |
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
+| Career matching profile schema | Initial public version | Versioned hard gates, role families, query vocabulary, exclusions, unsupported claims, and stretch-policy contract with no adopter data. |
+| Career evidence-bank schema | Initial public version | Versioned evidence units, verification states, ownership/assistance boundaries, metrics provenance, and limitations. |
+| Synthetic candidate examples | Initial public version | Coherent fictional profile, evidence bank, and source records containing no real identity, contact, employer, or account data. |
 | Cover-letter drafting skill | Initial public version | Four-source authorship model, shared notes/draft workspace, evidence and voice checks, explicit human approval, and clean-source handoff. |
 | Source-registry maintenance skill | Initial public version | Separates source evaluation from runtime search, preserves Markdown rationale plus YAML configuration, and requires explicit approval before local registry mutation. |
 | Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert template; every source is disabled pending local verification. |
@@ -38,23 +41,22 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- matching-profile and evidence-bank schemas;
 - application-packet and résumé-drafting skills and templates;
 - deterministic résumé and cover-letter rendering;
 - sanitized portfolio, résumé, and LinkedIn audit procedures;
-- synthetic candidate, posting, source-failure, and application fixtures;
+- synthetic posting, source-failure, and application fixtures;
 - update, rollback, and release instructions;
 - a full-capability clean-profile end-to-end acceptance run;
 - tagged-release notes and version metadata for the first stable release.
 
 ## Next build sequence
 
-1. Add the normalized matching-profile and evidence-bank contracts used by the implemented discovery and source-maintenance skills.
-3. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
-4. Install the proven generic skill into the private specialist profile through local configuration.
-5. Build the smaller `job-source-discovery` onboarding/maintenance skill.
-6. Add the reviewed application-packet, résumé-drafting, and deterministic document-rendering capabilities; the collaborative cover-letter drafting skill is already present.
-7. Repeat clean-install, leakage, provenance, and human semantic review against the expanded package before a tagged release.
+1. Add the application-packet and résumé-drafting contracts that consume the public matching and evidence schemas.
+2. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
+3. Add deterministic résumé and cover-letter rendering.
+4. Add employer intelligence and portfolio/profile audit procedures.
+5. Complete clean-profile acceptance, release, update, and rollback documentation.
+6. Repeat clean-install, leakage, provenance, and human semantic review against the expanded package before a tagged release.
 
 ## Migration rule
 

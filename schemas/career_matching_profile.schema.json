@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hermes-job-hunter/career_matching_profile.schema.json",
+  "title": "Hermes Job Hunter career matching profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_version",
+    "status",
+    "decision_owner",
+    "authority_note",
+    "evidence_bank_path",
+    "hard_gates",
+    "role_families",
+    "role_title_aliases",
+    "duty_patterns",
+    "query_vocabulary",
+    "preferred_signals",
+    "negative_signals",
+    "claims_not_supported",
+    "exclusions",
+    "stretch_policy"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "profile_version": {"type": "string", "minLength": 1},
+    "as_of": {"type": ["string", "null"], "format": "date"},
+    "status": {"enum": ["draft_review", "approved", "stale", "retired"]},
+    "decision_owner": {"type": "string", "minLength": 1},
+    "authority_note": {"type": "string", "minLength": 1},
+    "evidence_bank_path": {
+      "type": "string",
+      "pattern": "^(?!/)(?![A-Za-z]:\\\\).+"
+    },
+    "source_precedence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/sourceReference"},
+      "default": []
+    },
+    "hard_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["work_authorisation", "geography", "work_mode", "employment_types", "minimum_compensation", "travel_or_onsite_limits"],
+      "properties": {
+        "work_authorisation": {"$ref": "#/$defs/gate"},
+        "geography": {"$ref": "#/$defs/gate"},
+        "work_mode": {"$ref": "#/$defs/gate"},
+        "employment_types": {"$ref": "#/$defs/gate"},
+        "minimum_compensation": {"$ref": "#/$defs/gate"},
+        "travel_or_onsite_limits": {"$ref": "#/$defs/gate"}
+      }
+    },
+    "role_families": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "priority", "description"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+          "priority": {"enum": ["primary", "adjacent", "selective", "excluded"]},
+          "description": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "role_title_aliases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string", "minLength": 1},
+        "uniqueItems": true
+      }
+    },
+    "duty_patterns": {"$ref": "#/$defs/stringList"},
+    "query_vocabulary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive_terms", "adjacent_terms", "negative_terms"],
+      "properties": {
+        "positive_terms": {"$ref": "#/$defs/stringList"},
+        "adjacent_terms": {"$ref": "#/$defs/stringList"},
+        "negative_terms": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "preferred_signals": {"$ref": "#/$defs/stringList"},
+    "negative_signals": {"$ref": "#/$defs/stringList"},
+    "development_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item", "state", "boundary"],
+        "properties": {
+          "item": {"type": "string", "minLength": 1},
+          "state": {"enum": ["VERIFIED", "USER_REPORTED", "PROPOSED", "VERIFY_BEFORE_USE", "UNKNOWN"]},
+          "boundary": {"type": "string", "minLength": 1},
+          "source_refs": {"$ref": "#/$defs/stringList"}
+        }
+      },
+      "default": []
+    },
+    "claims_not_supported": {"$ref": "#/$defs/stringList"},
+    "target_employers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["employer_id", "tier", "state", "policy"],
+        "properties": {
+          "employer_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+          "tier": {"type": "string", "minLength": 1},
+          "state": {"enum": ["approved", "review_ready", "VERIFY_BEFORE_USE", "excluded"]},
+          "policy": {"type": "string", "minLength": 1},
+          "source_refs": {"$ref": "#/$defs/stringList"}
+        }
+      },
+      "default": []
+    },
+    "exclusions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["employers", "domains", "source_and_access"],
+      "properties": {
+        "employers": {"$ref": "#/$defs/stringList"},
+        "domains": {"$ref": "#/$defs/stringList"},
+        "source_and_access": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "stretch_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eligibility_rule", "apply_during_development", "allowed_stretch", "build_one_missing_brick_rule", "stop_conditions", "decision_grammar"],
+      "properties": {
+        "eligibility_rule": {"type": "string", "minLength": 1},
+        "apply_during_development": {"type": "boolean"},
+        "allowed_stretch": {"$ref": "#/$defs/stringList"},
+        "build_one_missing_brick_rule": {"type": "string", "minLength": 1},
+        "stop_conditions": {"$ref": "#/$defs/stringList"},
+        "decision_grammar": {
+          "type": "array",
+          "items": {"enum": ["APPLY", "APPLY_WITH_TAILORING", "BUILD_ONE_MISSING_BRICK", "SKIP"]},
+          "uniqueItems": true,
+          "minItems": 4,
+          "maxItems": 4
+        }
+      }
+    }
+  },
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "sourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "state", "precedence_note"],
+      "properties": {
+        "source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+        "path": {"type": "string", "pattern": "^(?!/)(?![A-Za-z]:\\\\).+"},
+        "state": {"enum": ["canonical", "approved", "VERIFIED", "USER_REPORTED", "PROPOSED", "VERIFY_BEFORE_USE", "UNKNOWN"]},
+        "precedence_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_condition", "state", "handling"],
+      "properties": {
+        "required_condition": {"type": ["string", "number", "null"]},
+        "state": {"enum": ["VERIFIED", "USER_REPORTED", "INFERRED", "PROPOSED", "VERIFY_BEFORE_USE", "UNKNOWN"]},
+        "handling": {"type": "string", "minLength": 1},
+        "preferred": {"$ref": "#/$defs/stringList"},
+        "potentially_acceptable": {"$ref": "#/$defs/stringList"},
+        "currency": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

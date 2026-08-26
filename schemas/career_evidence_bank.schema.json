@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hermes-job-hunter/career_evidence_bank.schema.json",
+  "title": "Hermes Job Hunter career evidence bank",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bank_version",
+    "status",
+    "decision_owner",
+    "authority_note",
+    "matching_profile_path",
+    "verification_states",
+    "evidence_units"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "bank_version": {"type": "string", "minLength": 1},
+    "as_of": {"type": ["string", "null"], "format": "date"},
+    "status": {"enum": ["draft_review", "approved", "stale", "retired"]},
+    "decision_owner": {"type": "string", "minLength": 1},
+    "authority_note": {"type": "string", "minLength": 1},
+    "matching_profile_path": {
+      "type": "string",
+      "pattern": "^(?!/)(?![A-Za-z]:\\\\).+"
+    },
+    "verification_states": {
+      "type": "array",
+      "items": {"enum": ["VERIFIED", "USER_REPORTED", "PROPOSED", "VERIFY_BEFORE_USE", "UNKNOWN"]},
+      "uniqueItems": true,
+      "minItems": 5,
+      "maxItems": 5
+    },
+    "source_catalogue": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/sourceReference"},
+      "default": []
+    },
+    "evidence_units": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidenceUnit"}
+    }
+  },
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "sourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "path", "state"],
+      "properties": {
+        "source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+        "path": {"type": "string", "pattern": "^(?!/)(?![A-Za-z]:\\\\).+"},
+        "state": {"enum": ["canonical", "approved", "VERIFIED", "USER_REPORTED", "PROPOSED", "VERIFY_BEFORE_USE", "UNKNOWN"]}
+      }
+    },
+    "ownershipEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "note"],
+      "properties": {
+        "state": {"enum": ["VERIFIED", "USER_REPORTED", "PROPOSED", "VERIFY_BEFORE_USE", "UNKNOWN", "NOT_APPLICABLE"]},
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "provenance", "source_ref"],
+      "properties": {
+        "value": {"type": ["string", "number"]},
+        "provenance": {"enum": ["source_path", "direct_measurement", "user_reported", "derived_unverified", "UNKNOWN"]},
+        "source_ref": {"type": ["string", "null"]}
+      }
+    },
+    "evidenceUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "kind",
+        "claim",
+        "source_refs",
+        "source_state",
+        "ownership",
+        "skills",
+        "duties_and_outcomes",
+        "transferable_patterns",
+        "metrics",
+        "limitations",
+        "last_verified"
+      ],
+      "properties": {
+        "evidence_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9_-]*$"},
+        "kind": {"enum": ["education", "credential", "course", "project", "employment", "volunteer", "system_work", "publication", "other"]},
+        "claim": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/stringList"},
+        "source_state": {"enum": ["VERIFIED", "USER_REPORTED", "PROPOSED", "VERIFY_BEFORE_USE", "UNKNOWN"]},
+        "ownership": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["designed", "implemented", "scaffold_or_assistance", "tested_or_verified"],
+          "properties": {
+            "designed": {"$ref": "#/$defs/ownershipEntry"},
+            "implemented": {"$ref": "#/$defs/ownershipEntry"},
+            "scaffold_or_assistance": {"$ref": "#/$defs/ownershipEntry"},
+            "tested_or_verified": {"$ref": "#/$defs/ownershipEntry"}
+          }
+        },
+        "skills": {"$ref": "#/$defs/stringList"},
+        "duties_and_outcomes": {"$ref": "#/$defs/stringList"},
+        "transferable_patterns": {"$ref": "#/$defs/stringList"},
+        "metrics": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/metric"}
+        },
+        "limitations": {"$ref": "#/$defs/stringList"},
+        "last_verified": {"type": ["string", "null"], "format": "date"}
+      }
+    }
+  }
+}

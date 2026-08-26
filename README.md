@@ -55,6 +55,14 @@ hermes-job-hunter/
 ├── LICENSE
 ├── PROJECT_STATUS.md
 ├── PROVENANCE.md
+├── schemas/
+│   ├── career_matching_profile.schema.json
+│   └── career_evidence_bank.schema.json
+├── examples/
+│   └── candidate/
+│       ├── career_matching_profile.example.yaml
+│       ├── career_evidence_bank.example.yaml
+│       └── sources/
 ├── skills/
 │   ├── job-hunter-core/
 │   │   └── SKILL.md

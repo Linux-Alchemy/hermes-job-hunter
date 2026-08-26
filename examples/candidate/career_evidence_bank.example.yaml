@@ -1,0 +1,134 @@
+schema_version: 1
+bank_version: "candidate-a.1"
+as_of: null
+status: draft_review
+decision_owner: human
+
+authority_note: >-
+  Synthetic evidence bank for testing. Storage here does not ratify a claim,
+  authorise external use, or describe a real person.
+
+matching_profile_path: "examples/candidate/career_matching_profile.example.yaml"
+
+verification_states:
+  - VERIFIED
+  - USER_REPORTED
+  - PROPOSED
+  - VERIFY_BEFORE_USE
+  - UNKNOWN
+
+source_catalogue:
+  - source_id: course_record
+    path: "examples/candidate/sources/course_record.example.md"
+    state: VERIFIED
+  - source_id: project_readme
+    path: "examples/candidate/sources/project_readme.example.md"
+    state: VERIFIED
+  - source_id: employment_notes
+    path: "examples/candidate/sources/employment_notes.example.md"
+    state: USER_REPORTED
+
+evidence_units:
+  - evidence_id: COURSE_QUERY_001
+    kind: course
+    claim: "Completed a foundational query-language course with structured exercises."
+    source_refs: [course_record]
+    source_state: VERIFIED
+    ownership:
+      designed:
+        state: NOT_APPLICABLE
+        note: "The course provider designed the curriculum."
+      implemented:
+        state: USER_REPORTED
+        note: "The candidate completed the exercises."
+      scaffold_or_assistance:
+        state: VERIFIED
+        note: "The work followed a provider-owned course scaffold."
+      tested_or_verified:
+        state: VERIFIED
+        note: "The synthetic course record marks the course complete."
+    skills:
+      - "query syntax"
+      - "relational data concepts"
+    duties_and_outcomes:
+      - "Completed structured exercises against sample relational data."
+    transferable_patterns:
+      - "structured data reasoning"
+    metrics:
+      - value: "24 exercises"
+        provenance: source_path
+        source_ref: course_record
+    limitations:
+      - "Course completion is not professional production experience."
+    last_verified: null
+
+  - evidence_id: PROJECT_QUEUE_001
+    kind: project
+    claim: "Built a small local queue-reporting utility from documented sample data."
+    source_refs: [project_readme]
+    source_state: VERIFIED
+    ownership:
+      designed:
+        state: USER_REPORTED
+        note: "The candidate selected the scope and output contract."
+      implemented:
+        state: VERIFY_BEFORE_USE
+        note: "Repository behaviour is visible, but line-level authorship is not established."
+      scaffold_or_assistance:
+        state: USER_REPORTED
+        note: "Reference material and AI assistance were used; their exact share is not quantified."
+      tested_or_verified:
+        state: VERIFIED
+        note: "The synthetic README records fixture-based tests."
+    skills:
+      - "Python"
+      - "structured data"
+      - "testing"
+      - "technical documentation"
+    duties_and_outcomes:
+      - "Normalized sample records and produced a bounded exception report."
+      - "Documented scope and known limitations."
+    transferable_patterns:
+      - "data quality"
+      - "bounded automation"
+      - "evidence-aware reporting"
+    metrics:
+      - value: 8
+        provenance: source_path
+        source_ref: project_readme
+    limitations:
+      - "The project used synthetic data and was not operated in production."
+      - "Do not imply unaided implementation or customer outcomes."
+    last_verified: null
+
+  - evidence_id: EMPLOYMENT_COORDINATION_001
+    kind: employment
+    claim: "Coordinated a small team and explained repeatable work procedures."
+    source_refs: [employment_notes]
+    source_state: USER_REPORTED
+    ownership:
+      designed:
+        state: UNKNOWN
+        note: "Process-design ownership is not established."
+      implemented:
+        state: USER_REPORTED
+        note: "The candidate reports direct coordination and instruction work."
+      scaffold_or_assistance:
+        state: NOT_APPLICABLE
+        note: "No course or software scaffold applies."
+      tested_or_verified:
+        state: VERIFY_BEFORE_USE
+        note: "Employment details require verification before external use."
+    skills:
+      - "team coordination"
+      - "instruction"
+      - "quality checks"
+    duties_and_outcomes:
+      - "Sequenced work, explained procedures, and checked completion."
+    transferable_patterns:
+      - "workflow coordination"
+      - "clear communication"
+    metrics: []
+    limitations:
+      - "Employer, dates, title, team size, and outcomes are intentionally absent from this synthetic example."
+    last_verified: null

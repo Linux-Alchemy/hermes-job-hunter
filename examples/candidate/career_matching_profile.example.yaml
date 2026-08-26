@@ -1,0 +1,134 @@
+schema_version: 1
+profile_version: "candidate-a.1"
+as_of: null
+status: draft_review
+decision_owner: human
+
+authority_note: >-
+  Synthetic matching profile for testing. It does not describe a real person,
+  ratify a claim, authorise an application, or permit external action.
+
+evidence_bank_path: "examples/candidate/career_evidence_bank.example.yaml"
+
+source_precedence:
+  - source_id: local_strategy
+    path: "config/career_strategy.local.md"
+    state: canonical
+    precedence_note: "Adopter-owned current direction and constraints."
+  - source_id: approved_resume
+    path: "config/resume_master.local.md"
+    state: approved
+    precedence_note: "Approved wording inventory; evidence bank still controls claim support."
+
+hard_gates:
+  work_authorisation:
+    required_condition: "Employer must be able to hire in Country A."
+    state: UNKNOWN
+    handling: "Do not infer work authorisation; verify only when the posting makes it material."
+  geography:
+    required_condition: "Role must permit permanent work from Region 1, Country A."
+    state: USER_REPORTED
+    handling: "Fail explicit ineligible roles; preserve omitted or conflicting eligibility as UNKNOWN."
+  work_mode:
+    required_condition: "Remote or locally reachable hybrid work."
+    state: USER_REPORTED
+    handling: "Treat required relocation or recurring distant office attendance as a failed gate."
+  employment_types:
+    required_condition: "Full-time preferred."
+    state: USER_REPORTED
+    preferred: [full_time]
+    potentially_acceptable: [contract]
+    handling: "Other arrangements require a role-specific human decision."
+  minimum_compensation:
+    required_condition: null
+    state: UNKNOWN
+    currency: null
+    handling: "Do not invent a floor or reject omitted compensation."
+  travel_or_onsite_limits:
+    required_condition: "No recurring travel requirement."
+    state: USER_REPORTED
+    handling: "One-off travel remains UNKNOWN until reviewed."
+
+role_families:
+  - id: operations_analysis
+    priority: primary
+    description: "Operational analysis, reporting, data quality, and workflow improvement."
+  - id: implementation_support
+    priority: adjacent
+    description: "Implementation and product-support work with technical investigation."
+
+role_title_aliases:
+  operations_analysis:
+    - "operations analyst"
+    - "data quality analyst"
+    - "reporting analyst"
+  implementation_support:
+    - "implementation specialist"
+    - "application support analyst"
+
+duty_patterns:
+  - "Investigate unclear workflow or data problems using reproducible steps."
+  - "Maintain accurate records and turn findings into practical recommendations."
+  - "Automate bounded repetitive work with scripts, queries, or APIs."
+
+query_vocabulary:
+  positive_terms:
+    - "data quality"
+    - "SQL"
+    - "automation"
+    - "technical troubleshooting"
+  adjacent_terms:
+    - "implementation"
+    - "product support"
+    - "workflow operations"
+  negative_terms:
+    - "relocation required"
+    - "quota-carrying sales"
+    - "principal engineer"
+
+preferred_signals:
+  - "Projects or transferable evidence are accepted."
+  - "Duties combine investigation, data, documentation, and process improvement."
+negative_signals:
+  - "A remote label appears without an employing-jurisdiction answer."
+  - "The role requires unsupported senior ownership or mandatory credentials."
+
+development_items:
+  - item: "Foundational query-language course"
+    state: VERIFIED
+    boundary: "Course completion is not professional production experience."
+    source_refs: [course_record]
+
+claims_not_supported:
+  - "Professional database-administration experience."
+  - "Independent ownership of a production analytics platform."
+
+target_employers: []
+
+exclusions:
+  employers: []
+  domains:
+    - "Mandatory relocation outside the configured region."
+    - "Roles centred on quota sales rather than the target duties."
+  source_and_access:
+    - "Authenticated job-board sessions or access-control bypass."
+    - "Aggregator copies used as final proof when employer-original evidence is unavailable."
+
+stretch_policy:
+  eligibility_rule: "A failed hard gate always produces SKIP; UNKNOWN remains unresolved."
+  apply_during_development: true
+  allowed_stretch:
+    - "One preferred tool may be missing when core duties match supported evidence."
+    - "Years-of-experience wording is not automatically a hard gate."
+  build_one_missing_brick_rule: >-
+    Use only for one recurring strategic gap that blocks otherwise plausible roles,
+    not for a tool seen once.
+  stop_conditions:
+    - "Failed geography, authorisation, or work-mode gate."
+    - "Severe seniority or ownership mismatch."
+    - "Application would require unsupported claims."
+  decision_grammar:
+    - APPLY
+    - APPLY_WITH_TAILORING
+    - BUILD_ONE_MISSING_BRICK
+    - SKIP
