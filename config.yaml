@@ -7,6 +7,14 @@ terminal:
 agent:
   verify_on_stop: true
 
+plugins:
+  enabled:
+    - career-document-production
+  disabled: []
+  entries:
+    career-document-production:
+      allow_tool_override: false
+
 # Start with the minimum read/draft tool surface.
 # Add messaging, cron, cloud, Kanban, or browser integrations only after
 # reviewing their authority and updating the profile contract.
@@ -14,12 +22,16 @@ platform_toolsets:
   cli:
     - clarify
     - file
+    - resume_production
     - skills
     - todo
+    - vision
     - web
   discord:
     - clarify
     - file
+    - resume_production
     - skills
     - todo
+    - vision
     - web

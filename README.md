@@ -2,7 +2,7 @@
 
 A reusable Hermes specialist profile for evidence-bounded job discovery, fit analysis, and application drafting.
 
-> **Status:** installable pre-release. The repository is a native Hermes profile distribution with validated core policy, registry-driven job discovery, and collaborative cover-letter drafting. Matching/evidence schemas, résumé production, employer intelligence, audit capabilities, and full acceptance machinery are being integrated.
+> **Status:** installable pre-release. The repository now includes core policy, career schemas, registry-driven discovery, source maintenance, employer intelligence, application packets, résumé and cover-letter drafting, and deterministic DOCX/PDF production. Audit procedures and full release acceptance are still being integrated.
 
 ## What it is
 
@@ -31,6 +31,9 @@ skills/job-hunter-core/SKILL.md
             ↓
 skills/cover-letter-drafting/SKILL.md
     develops one evidence-bounded letter in a shared human-review workspace
+            ↓
+application-packet + resume-drafting + career-document-rendering
+    preserve approvals, produce controlled DOCX/PDF, and retain QA evidence
             ↓
 config/source_registry.local.yaml
     tells the discovery skill which sources may run and how
@@ -83,12 +86,22 @@ hermes-job-hunter/
 │   ├── resume-drafting/
 │   │   ├── SKILL.md
 │   │   └── templates/
+│   ├── career-document-rendering/
+│   │   └── SKILL.md
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/
 │       │   └── cover_letter_workspace.md
 │       └── references/
 │           └── proven_workflow_pattern.md
+├── plugins/
+│   └── career-document-production/
+│       ├── plugin.yaml
+│       ├── tools.py
+│       ├── schemas.py
+│       ├── scripts/
+│       ├── templates/
+│       └── tests/
 ├── config/
 │   ├── source_registry.example.yaml
 │   └── source_access_decisions.example.md
@@ -130,7 +143,19 @@ The validator requires Python and PyYAML, both of which are already present in a
 python scripts/validate_package.py
 ```
 
-It checks required files, YAML structure, skill frontmatter, relative links, symlinks, and common secret/PII leakage patterns.
+It checks required files, YAML structure, skill frontmatter, relative links, symlinks, and common secret/PII leakage patterns. The packaged renderer also has an executable seven-case test suite under `plugins/career-document-production/tests/`.
+
+### Renderer prerequisites
+
+The renderer is enabled in the installed profile but exposes tools only when its dependencies are available:
+
+- LibreOffice Writer (`soffice`);
+- Poppler tools (`pdfinfo`, `pdftotext`, `pdftoppm`);
+- fontconfig (`fc-match`);
+- Python package `python-docx==1.2.0`;
+- `JetBrainsMono NF` or the canonical installed alias `JetBrainsMono Nerd Font`.
+
+If the required font is absent, rendering stops and asks the human decision owner to choose an alternate. It never substitutes a font silently.
 
 ## Installation
 
@@ -146,7 +171,7 @@ For local development or inspection:
 hermes profile install . --name hermes-job-hunter-test
 ```
 
-This installs the profile contract, safe default configuration, core evidence policy, and collaborative cover-letter drafting workflow. It does not install private career evidence, credentials, account state, application history, rendering tools, or writing samples. Treat the current release as a review-gated foundation rather than a complete career agent.
+This installs the profile contract, safe default configuration, current skills, and the bounded career-document plugin. It does not install private career evidence, credentials, account state, application history, or writing samples. Rendering remains dependency-gated and every consequential external action remains human-owned.
 
 ## Licence
 

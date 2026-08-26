@@ -1,0 +1,12 @@
+name: career-document-production
+version: "0.1.0"
+manifest_version: 2
+api_version: 1
+description: Bounded DOCX/PDF rendering, layout revision, font enforcement, and validation for Hermes Job Hunter career-document packets.
+license: MIT
+provides_tools:
+  - resume_render_approved
+  - resume_validate_artifacts
+  - resume_revise_layout
+python_dependencies:
+  - "python-docx==1.2.0"

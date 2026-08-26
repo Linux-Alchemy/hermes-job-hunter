@@ -26,6 +26,12 @@ REQUIRED = [
     "skills/cover-letter-drafting/SKILL.md",
     "skills/cover-letter-drafting/templates/cover_letter_workspace.md",
     "skills/cover-letter-drafting/references/proven_workflow_pattern.md",
+    "skills/career-document-rendering/SKILL.md",
+    "plugins/career-document-production/plugin.yaml",
+    "plugins/career-document-production/__init__.py",
+    "plugins/career-document-production/schemas.py",
+    "plugins/career-document-production/tools.py",
+    "plugins/career-document-production/templates/resume_template.docx",
     "config/source_registry.example.yaml",
     "config/source_access_decisions.example.md",
     "docs/ARCHITECTURE.md",
@@ -41,12 +47,13 @@ SCAN_ROOTS = [
     ROOT / "PROJECT_STATUS.md",
     ROOT / "PROVENANCE.md",
     ROOT / "skills",
+    ROOT / "plugins",
     ROOT / "config",
     ROOT / "docs",
     ROOT / "onboarding",
     ROOT / "tests",
 ]
-TEXT_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".txt"}
+TEXT_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".txt", ".py"}
 
 
 def fail(message: str) -> NoReturn:
@@ -82,7 +89,7 @@ def validate_distribution() -> None:
         fail("distribution name must be hermes-job-hunter")
     if data["license"] != "MIT":
         fail("distribution licence must be MIT")
-    expected_owned = {"distribution.yaml", "SOUL.md", "config.yaml", "skills/"}
+    expected_owned = {"distribution.yaml", "SOUL.md", "config.yaml", "skills/", "plugins/"}
     owned = data.get("distribution_owned")
     if not isinstance(owned, list) or set(owned) != expected_owned:
         fail("distribution_owned paths do not match the public runtime payload")
