@@ -96,6 +96,10 @@ hermes-job-hunter/
 │   │   ├── SKILL.md
 │   │   ├── references/
 │   │   └── templates/
+│   ├── linkedin-audit/
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── templates/
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/

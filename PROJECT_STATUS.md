@@ -18,6 +18,7 @@
 | Employer-intelligence skill | Initial public version | Consolidated company research, acquisition context, review synthesis, metric-conflict handling, role implications, and interview questions into one read-only procedure. |
 | GitHub portfolio audit | Initial public version | Bounded public/local inspection, repository-role assignment, comprehension tests, provenance/evaluability review, career consistency, and credibility-first cleanup without code execution or GitHub mutation. |
 | CV audit | Initial public version | Evidence, requirement, parser, rendering, consistency, and prioritised-correction review with bounded depth and no silent rewriting. |
+| LinkedIn audit | Initial public version | Consent-aware bounded review of structured fields, narrative, proof assets, activity, evidence, cross-surface consistency, and algorithm-claim confidence without authenticated access or mutation. |
 | Résumé-drafting skill | Initial public version | Separates general and application-specific drafting, requires a human-approved brief, records evidence/build decisions, preserves authorship boundaries, and hands only approved Markdown to rendering. |
 | Career-document rendering skill and plugin | Working public version | Packages approval-gated DOCX/PDF rendering, 9–12 pt `JetBrainsMono NF` enforcement in DOCX and PDF, page/structure/text QA, preview generation, bounded rollback-safe layout revision, output-symlink refusal, and ten passing end-to-end tests. |
 | Application-packet skill | Initial public version | Defines one-opportunity private dossier structure, evidence manifest, independent artefact states, approval gates, rendered-output provenance, and application lifecycle transitions. |
@@ -47,7 +48,6 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- sanitized LinkedIn audit procedure;
 - synthetic posting, source-failure, and application fixtures;
 - update, rollback, and release instructions;
 - a full-capability clean-profile end-to-end acceptance run;
