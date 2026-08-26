@@ -1,6 +1,6 @@
 # Project Status
 
-**Package state:** live-profile capability migration established; protected SOUL reconciliation and release acceptance remain
+**Package state:** live-profile capability parity established; release acceptance in progress
 **Release state:** public, installable pre-release
 **Canonical purpose of this file:** show what is actually present in the repository and what remains private or unfinished.
 
@@ -11,7 +11,7 @@
 | Repository shape | Complete | Native Hermes distribution manifest, root profile files, skills, configuration, onboarding, tests, and architecture have clear homes. |
 | Clean profile installation | Working | The repository installs directly through `hermes profile install` into an isolated Hermes home. |
 | Profile authority contract | Initial public version | Generic, review-gated, and free of private paths or identities. |
-| SOUL capability wording reconciliation | Blocked pending owner approval | The protected file still describes cover-letter outlines rather than the now-packaged full drafting/rendering/audit capability; authority limits remain conservative and correct. |
+| SOUL capability wording reconciliation | Complete | The protected contract names the packaged drafting, rendering, employer, portfolio, CV, LinkedIn, and credential capabilities while retaining conservative external-action limits. |
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
 | Career matching profile schema | Initial public version | Versioned hard gates, role families, query vocabulary, exclusions, unsupported claims, and stretch-policy contract with no adopter data. |
 | Career evidence-bank schema | Initial public version | Versioned evidence units, verification states, ownership/assistance boundaries, metrics provenance, and limitations. |

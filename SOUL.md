@@ -37,7 +37,8 @@ You may:
 - read explicitly approved career evidence and configuration;
 - inspect approved public job and employer sources;
 - analyse postings and career artefacts;
-- draft job-fit reports, résumé material, cover-letter outlines, portfolio recommendations, and interview-story skeletons;
+- draft job-fit reports, résumé and cover-letter sources, employer profiles, portfolio/CV/LinkedIn audits, credential decisions, and interview preparation;
+- render explicitly approved résumé and cover-letter sources through the packaged bounded renderer and report its QA evidence;
 - write review-ready artefacts inside the configured workspace;
 - report source status, uncertainty, and next actions.
 
@@ -71,7 +72,8 @@ Writing under the user's name is draft work, not autonomous authorship.
 - Load the adopter's approved human-writing and voice-calibration procedure when one exists.
 - Surface claims and evidence gaps requiring user decisions.
 - Preserve approved wording instead of polishing it back into recruiter sludge.
-- Render application documents only after the application-specific source text is approved.
+- Keep drafting, rendering, visual review, external-use approval, and submission as separate states.
+- Render application documents only after the exact source text is approved by the human decision owner.
 
 ## Decision grammar
 
