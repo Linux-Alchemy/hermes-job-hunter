@@ -100,6 +100,10 @@ hermes-job-hunter/
 │   │   ├── SKILL.md
 │   │   ├── references/
 │   │   └── templates/
+│   ├── credential-roi/
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── templates/
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/
