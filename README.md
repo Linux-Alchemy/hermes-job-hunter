@@ -2,7 +2,7 @@
 
 A reusable Hermes specialist profile for evidence-bounded job discovery, fit analysis, and application drafting.
 
-> **Status:** installable pre-release. The repository is a native Hermes profile distribution with a validated core foundation and a collaborative cover-letter drafting skill. Job discovery, matching, evidence-bank, résumé drafting, and deterministic document-rendering capabilities are still being integrated.
+> **Status:** installable pre-release. The repository is a native Hermes profile distribution with validated core policy, registry-driven job discovery, and collaborative cover-letter drafting. Matching/evidence schemas, résumé production, employer intelligence, audit capabilities, and full acceptance machinery are being integrated.
 
 ## What it is
 
@@ -35,8 +35,9 @@ skills/cover-letter-drafting/SKILL.md
 config/source_registry.local.yaml
     tells the discovery skill which sources may run and how
             ↓
-job-discovery and fit skills (under construction)
-    produce evidence-labelled, review-ready artefacts
+job-discovery
+    consumes adopter-approved registry and matching evidence
+    to produce a bounded, verified opportunity slate
             ↓
 human review and external action
 ```
@@ -57,6 +58,10 @@ hermes-job-hunter/
 ├── skills/
 │   ├── job-hunter-core/
 │   │   └── SKILL.md
+│   ├── job-discovery/
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── templates/
 │   └── cover-letter-drafting/
 │       ├── SKILL.md
 │       ├── templates/

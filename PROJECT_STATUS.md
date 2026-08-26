@@ -15,7 +15,8 @@
 | Cover-letter drafting skill | Initial public version | Four-source authorship model, shared notes/draft workspace, evidence and voice checks, explicit human approval, and clean-source handoff. |
 | Source-registry schema | Initial public version | Twenty-five source definitions retained as an inert template; every source is disabled pending local verification. |
 | Source decision-record template | Initial public version | Separates human rationale from executable configuration. |
-| Job-discovery skill research | Decision-ready | Candidate audit complete. Build a clean-room runtime skill; keep source discovery as a separate onboarding/maintenance skill. |
+| Job-discovery runtime skill | Initial public version | Registry-gated bounded search, normalized posting contracts, source-health states, employer-original verification, synthetic acceptance cases, and review-ready output template. |
+| Job-discovery skill research | Decision implemented | Candidate audit and clean-room boundary produced the public `job-discovery` runtime skill; source onboarding remains separate. |
 | Voice-calibration onboarding | Initial public version | Teaches adopters to calibrate a user-owned overlay without shipping private samples. |
 | Acceptance matrix | Initial version | Defines required success, degraded, stale, refusal, and clean-install tests. |
 | Package validator | Working | Validates structure, YAML, skill frontmatter, links, symlinks, and common leakage patterns. |
@@ -36,8 +37,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- the runtime `job-discovery` skill that consumes the registry;
-- the onboarding/maintenance `job-source-discovery` skill that proposes registry changes;
+- the onboarding/maintenance `source-registry-maintenance` skill that proposes registry changes;
 - matching-profile and evidence-bank schemas;
 - application-packet and résumé-drafting skills and templates;
 - deterministic résumé and cover-letter rendering;
@@ -49,7 +49,7 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Next build sequence
 
-1. Keep the distribution installable while building the clean-room `job-discovery` skill against `source_registry.example.yaml` and `job-hunter-core`.
+1. Keep the distribution installable while adding the clean-room `source-registry-maintenance` companion to the implemented `job-discovery` skill.
 2. Add the normalized posting, search-run, matching-profile, and evidence-bank contracts.
 3. Run synthetic normal, degraded, stale, blocked, location-trap, duplicate, and injection cases.
 4. Install the proven generic skill into the private specialist profile through local configuration.
