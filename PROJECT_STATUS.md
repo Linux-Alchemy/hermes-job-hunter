@@ -1,6 +1,6 @@
 # Project Status
 
-**Package state:** live-profile capability parity established; release acceptance in progress
+**Package state:** live-profile capability parity and disposable-profile acceptance complete
 **Release state:** public, installable pre-release
 **Canonical purpose of this file:** show what is actually present in the repository and what remains private or unfinished.
 
@@ -10,6 +10,7 @@
 |---|---|---|
 | Repository shape | Complete | Native Hermes distribution manifest, root profile files, skills, configuration, onboarding, tests, and architecture have clear homes. |
 | Clean profile installation | Working | The repository installs directly through `hermes profile install` into an isolated Hermes home. |
+| Full disposable-profile acceptance | Passed for 0.15.0 | Verified 12 enabled local skills, the bounded plugin/toolset, source/package integrity, actual synthetic résumé and cover-letter renders, false external-use state, and profile cleanup. |
 | Profile authority contract | Initial public version | Generic, review-gated, and free of private paths or identities. |
 | SOUL capability wording reconciliation | Complete | The protected contract names the packaged drafting, rendering, employer, portfolio, CV, LinkedIn, and credential capabilities while retaining conservative external-action limits. |
 | Core skill | Initial public version | Evidence labels, source precedence, authority, status, and refusal rules. |
@@ -53,7 +54,6 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- a full-capability clean-profile end-to-end acceptance run;
 - tagged-release notes and version metadata for the first stable release.
 
 ## Next build sequence

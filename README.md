@@ -2,7 +2,7 @@
 
 A reusable Hermes specialist profile for evidence-bounded job discovery, fit analysis, and application drafting.
 
-> **Status:** capability-parity, installable pre-release. Core policy, career schemas, discovery, source maintenance, employer intelligence, application packets, drafting, deterministic DOCX/PDF production, portfolio/profile audits, credential decisions, and synthetic acceptance fixtures are packaged. Final disposable-profile acceptance and verified remote publication remain.
+> **Status:** capability-parity, installable pre-release. Core policy, career schemas, discovery, source maintenance, employer intelligence, application packets, drafting, deterministic DOCX/PDF production, portfolio/profile audits, credential decisions, and synthetic acceptance fixtures are packaged. Disposable-profile acceptance passed; verified remote publication remains.
 
 ## What it is
 
@@ -124,6 +124,7 @@ hermes-job-hunter/
 │   └── voice_calibration.md
 ├── tests/
 │   ├── acceptance_matrix.md
+│   ├── ACCEPTANCE_RECEIPT_0.15.0.md
 │   └── fixtures/
 │       ├── job_discovery/
 │       ├── application/
