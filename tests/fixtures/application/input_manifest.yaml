@@ -1,0 +1,53 @@
+schema_version: 1
+packet_id: northstar_systems--operations_analyst
+packet_state: approved_to_render
+human_decision_owner: Human Reviewer
+last_reviewed: "2026-01-15"
+inputs:
+  - path: source/job_posting.md
+    artefact_type: job_posting
+    state: VERIFIED
+    source_owner: synthetic_employer
+    version_or_hash: fixture
+    last_reviewed: "2026-01-15"
+    allowed_use: evaluation_and_truthful_tailoring
+    limitations: [synthetic_fixture]
+  - path: source/company_profile.md
+    artefact_type: employer_intelligence
+    state: review_ready
+    source_owner: local_advisory_workflow
+    version_or_hash: fixture
+    last_reviewed: "2026-01-15"
+    allowed_use: evaluation_and_interview_preparation
+    limitations: [synthetic_fixture]
+  - path: source/resume_source.md
+    artefact_type: resume_source
+    state: APPROVED_MARKDOWN
+    source_owner: Human Reviewer
+    version_or_hash: fixture
+    last_reviewed: "2026-01-15"
+    allowed_use: rendering
+    limitations: [synthetic_fixture]
+  - path: source/cover_letter_source.md
+    artefact_type: cover_letter_source
+    state: APPROVED_MARKDOWN
+    source_owner: Human Reviewer
+    version_or_hash: fixture
+    last_reviewed: "2026-01-15"
+    allowed_use: rendering
+    limitations: [synthetic_fixture]
+approvals:
+  drafting:
+    owner: Human Reviewer
+    date: "2026-01-15"
+  rendering:
+    owner: Human Reviewer
+    date: "2026-01-15"
+  external_use: null
+  submission: null
+outputs: []
+expected:
+  renderer_may_run: true
+  ready_for_external_use: false
+  submission_authorized: false
+  external_actions: none

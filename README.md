@@ -121,7 +121,11 @@ hermes-job-hunter/
 ├── onboarding/
 │   └── voice_calibration.md
 ├── tests/
-│   └── acceptance_matrix.md
+│   ├── acceptance_matrix.md
+│   └── fixtures/
+│       ├── job_discovery/
+│       ├── application/
+│       └── refusal_cases.yaml
 └── scripts/
     └── validate_package.py
 ```

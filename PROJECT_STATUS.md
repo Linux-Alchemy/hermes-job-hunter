@@ -16,6 +16,7 @@
 | Career matching profile schema | Initial public version | Versioned hard gates, role families, query vocabulary, exclusions, unsupported claims, and stretch-policy contract with no adopter data. |
 | Career evidence-bank schema | Initial public version | Versioned evidence units, verification states, ownership/assistance boundaries, metrics provenance, and limitations. |
 | Synthetic candidate examples | Initial public version | Coherent fictional profile, evidence bank, and source records containing no real identity, contact, employer, or account data. |
+| Synthetic acceptance fixtures | Complete for current workflows | One coherent fictional identity/employer covers discovery success/failure states, application sources and approvals, rendering inputs, and eight external-action refusals. |
 | Employer-intelligence skill | Initial public version | Consolidated company research, acquisition context, review synthesis, metric-conflict handling, role implications, and interview questions into one read-only procedure. |
 | GitHub portfolio audit | Initial public version | Bounded public/local inspection, repository-role assignment, comprehension tests, provenance/evaluability review, career consistency, and credibility-first cleanup without code execution or GitHub mutation. |
 | CV audit | Initial public version | Evidence, requirement, parser, rendering, consistency, and prioritised-correction review with bounded depth and no silent rewriting. |
@@ -51,7 +52,6 @@ Private evidence can prove that a public procedure works. It is not itself a pub
 
 ## Not migrated yet
 
-- synthetic posting, source-failure, and application fixtures;
 - update, rollback, and release instructions;
 - a full-capability clean-profile end-to-end acceptance run;
 - tagged-release notes and version metadata for the first stable release.
